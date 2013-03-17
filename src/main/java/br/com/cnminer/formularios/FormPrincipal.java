@@ -4,13 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 
 public abstract  class FormPrincipal extends JFrame {
 
@@ -38,35 +45,39 @@ public abstract  class FormPrincipal extends JFrame {
 		painelRodape.add(panel, BorderLayout.CENTER);
 
 		
-		JButton button = new JButton("Cancelar");
+		JButton botaoCancelar = new JButton("Cancelar");
+		botaoCancelar.addActionListener(retornaEventoBotaoCancelar());
 		
-		JButton button_1 = new JButton("Voltar");
+		JButton botaoVoltar = new JButton("Voltar");
+		botaoVoltar.addActionListener(retornaEventoBotaoVoltar());
 		
-		JButton button_2 = new JButton("Avan\u00E7ar");
+		JButton botaoAvancar = new JButton("Avan\u00E7ar");
+		botaoAvancar.addActionListener(retornaEventoBotaoAvancar());
 		
-		JButton button_3 = new JButton("Concluir");
+		JButton botaoConcluir = new JButton("Concluir");
+		botaoConcluir.addActionListener(retornaEventoBotaoConcluir());
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(button)
+					.addComponent(botaoCancelar)
 					.addGap(202)
-					.addComponent(button_1)
+					.addComponent(botaoVoltar)
 					.addGap(18)
-					.addComponent(button_2)
+					.addComponent(botaoAvancar)
 					.addGap(18, 126, Short.MAX_VALUE)
-					.addComponent(button_3)
+					.addComponent(botaoConcluir)
 					.addGap(11))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(button_1)
-						.addComponent(button_2)
-						.addComponent(button_3)
-						.addComponent(button))
+						.addComponent(botaoVoltar)
+						.addComponent(botaoAvancar)
+						.addComponent(botaoConcluir)
+						.addComponent(botaoCancelar))
 					.addContainerGap(14, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
@@ -97,19 +108,58 @@ public abstract  class FormPrincipal extends JFrame {
 					.addGap(30)
 					.addComponent(painelRodape, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
-//		//Adicionando imagem
-//		try {
-//			imagem = ImageIO.read(new File("src/main/resources/imagens/banco-de-dados-web.png"));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		JLabel labelImagem = new JLabel(new ImageIcon(imagem));
-//		
-//		painelImagem.add(labelImagem);
+		//Adicionando imagem
+		try {
+			imagem = ImageIO.read(new File("src/main/resources/imagens/banco-de-dados-web.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		JLabel labelImagem = new JLabel(new ImageIcon(imagem));
+		
+		painelImagem.add(labelImagem);
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	public abstract JPanel painelEditavel();
+	//Método deve ser transformando para abstract
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoCancelar(){
+		
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}
+		};
+	}
+	
+	//Método deve ser transformando para abstract
+	public ActionListener retornaEventoBotaoVoltar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+	
+	//Método deve ser transformando para abstract
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+		
+	//Método deve ser transformando para abstract
+	public JPanel painelEditavel(){
+		return new JPanel();
+	}
 		
 }

@@ -1,5 +1,8 @@
 package br.com.cnminer.formularios;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -86,6 +89,29 @@ public class FormCarregarArquivo extends FormPrincipal {
 		
 	}
 	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoVoltar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				setVisible(false);
+			}
+		};
+	}
 	
 	
 

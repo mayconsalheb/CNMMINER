@@ -1,6 +1,8 @@
 package br.com.cnminer.formularios;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -16,6 +18,8 @@ public class FormBemVindo extends FormPrincipal{
 
 	private static final long serialVersionUID = 3318317450049633366L;
 
+	private FormCarregarArquivo formCarregarArq;
+	
 	@Override
 	public JPanel painelEditavel() {
 
@@ -76,6 +80,31 @@ public class FormBemVindo extends FormPrincipal{
 				}
 			}
 		});
+	}
+	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				formCarregarArq = new FormCarregarArquivo();
+				formCarregarArq.setVisible(true);
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoVoltar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
 	}
 
 }
