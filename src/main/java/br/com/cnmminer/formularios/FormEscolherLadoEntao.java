@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.cnminer.formularios;
+package br.com.cnmminer.formularios;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,6 +19,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  *
  */
 public class FormEscolherLadoEntao extends FormPrincipal {
+
+	private static final long serialVersionUID = 5153797266678607223L;
 
 	public FormEscolherLadoEntao() {
 	}

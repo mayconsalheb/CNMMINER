@@ -1,26 +1,35 @@
-package br.com.cnminer.formularios;
+package br.com.cnmminer.formularios;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import br.com.cnmminer.bean.Arquivo;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class FormCarregarArquivo extends FormPrincipal {
+
 	public FormCarregarArquivo() {
 	}
 
 	private static final long serialVersionUID = 2033196326835124700L;
 
+	private Arquivo arquivo;
+	private JFileChooser chooser;
+	private String caminhoArquivo;
+	private JEditorPane editorLocalArquivoExcel;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -41,9 +50,11 @@ public class FormCarregarArquivo extends FormPrincipal {
 		
 		JLabel lblLocalizaoDoArquivo = DefaultComponentFactory.getInstance().createLabel("Localiza\u00E7\u00E3o do arquivo Microsoft Excel:");
 		
-		JEditorPane editorLocalArquivoExcel = new JEditorPane();
+		editorLocalArquivoExcel = new JEditorPane();
 		
-		JButton button_4 = new JButton("...");
+		JButton botaoProcurarArquivo = new JButton("...");
+		
+		botaoProcurarArquivo.addActionListener(listenerBotaoProcurarArquivo());
 		
 		JLabel lblAgoraEscolhaA = DefaultComponentFactory.getInstance().createLabel("Agora escolha a planilha que deseja analisar:");
 		
@@ -59,7 +70,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 								.addGroup(gl_painelEditavel.createSequentialGroup()
 									.addComponent(editorLocalArquivoExcel, GroupLayout.PREFERRED_SIZE, 381, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(button_4, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+									.addComponent(botaoProcurarArquivo, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
 								.addComponent(lblDadosDeOrigem)
 								.addComponent(lblLocalizaoDoArquivo)
 								.addComponent(lblAgoraEscolhaA)))
@@ -75,7 +86,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 					.addComponent(lblLocalizaoDoArquivo)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_painelEditavel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(button_4, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addComponent(botaoProcurarArquivo, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
 						.addComponent(editorLocalArquivoExcel, Alignment.LEADING))
 					.addGap(44)
 					.addComponent(lblAgoraEscolhaA)
@@ -87,6 +98,44 @@ public class FormCarregarArquivo extends FormPrincipal {
 		
 		return painelCarregarArquivo;
 		
+	}
+	
+	public ActionListener listenerBotaoProcurarArquivo(){
+		return new ActionListener(){
+
+			public void actionPerformed(ActionEvent event) {
+				
+				arquivo = new Arquivo();
+				chooser = new JFileChooser();
+
+				chooser.setFileFilter(new javax.swing.filechooser.FileFilter(){
+					public boolean accept(File f){
+						return f.getName().toLowerCase().endsWith(Arquivo.EXTENSAO_XLS) || f.getName().toLowerCase().endsWith(Arquivo.EXTENSAO_XLSX) || f.isDirectory();
+					}
+					public String getDescription() {
+						return "Arquivo do Microsoft Excel (.xls)";
+					}
+				});
+				
+				Integer retorno = chooser.showOpenDialog(null);
+				
+				if(retorno == JFileChooser.APPROVE_OPTION){
+					caminhoArquivo = chooser.getSelectedFile().getAbsolutePath();
+					if(caminhoArquivo.endsWith(Arquivo.EXTENSAO_XLS)){
+						arquivo.setExtensao(Arquivo.EXTENSAO_XLS);
+					
+					
+					}else if(caminhoArquivo.endsWith(Arquivo.EXTENSAO_XLSX)){
+						arquivo.setExtensao(Arquivo.EXTENSAO_XLSX);
+					}
+					
+					System.out.println(caminhoArquivo);
+					editorLocalArquivoExcel.setText(caminhoArquivo);
+					}else{
+						System.out.println("Nao abriu");
+					}
+			}
+		};
 	}
 	
 	public ActionListener retornaEventoBotaoAvancar(){

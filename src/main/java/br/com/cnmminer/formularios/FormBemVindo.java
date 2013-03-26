@@ -1,4 +1,4 @@
-package br.com.cnminer.formularios;
+package br.com.cnmminer.formularios;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
