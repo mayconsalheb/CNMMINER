@@ -3,6 +3,7 @@ package br.com.cnmminer.formularios;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.PlanilhaExcel;
+import br.com.cnmminer.util.ManipularArquivo;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -29,6 +32,8 @@ public class FormCarregarArquivo extends FormPrincipal {
 	private JFileChooser chooser;
 	private String caminhoArquivo;
 	private JEditorPane editorLocalArquivoExcel;
+	private JComboBox comboBox;
+	private ManipularArquivo manipularArquivo;
 	
 	/**
 	 * Create the panel.
@@ -58,7 +63,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 		
 		JLabel lblAgoraEscolhaA = DefaultComponentFactory.getInstance().createLabel("Agora escolha a planilha que deseja analisar:");
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		GroupLayout gl_painelEditavel = new GroupLayout(painelCarregarArquivo);
 		gl_painelEditavel.setHorizontalGroup(
 			gl_painelEditavel.createParallelGroup(Alignment.LEADING)
@@ -105,7 +110,6 @@ public class FormCarregarArquivo extends FormPrincipal {
 
 			public void actionPerformed(ActionEvent event) {
 				
-				arquivo = new Arquivo();
 				chooser = new JFileChooser();
 
 				chooser.setFileFilter(new javax.swing.filechooser.FileFilter(){
@@ -120,20 +124,63 @@ public class FormCarregarArquivo extends FormPrincipal {
 				Integer retorno = chooser.showOpenDialog(null);
 				
 				if(retorno == JFileChooser.APPROVE_OPTION){
+				
 					caminhoArquivo = chooser.getSelectedFile().getAbsolutePath();
-					if(caminhoArquivo.endsWith(Arquivo.EXTENSAO_XLS)){
-						arquivo.setExtensao(Arquivo.EXTENSAO_XLS);
+
+					manipularArquivo = new ManipularArquivo();
 					
+					arquivo = montarArquivo();
+					PlanilhaExcel planilhaExcel = new PlanilhaExcel();
 					
-					}else if(caminhoArquivo.endsWith(Arquivo.EXTENSAO_XLSX)){
-						arquivo.setExtensao(Arquivo.EXTENSAO_XLSX);
-					}
-					
-					System.out.println(caminhoArquivo);
-					editorLocalArquivoExcel.setText(caminhoArquivo);
+					if(manipularArquivo.abrirArquivo(arquivo, planilhaExcel)){
+				
+						ArrayList<String> planilhas = manipularArquivo.recuperarPlanilhasArquivo(arquivo, planilhaExcel);
+
+						if(caminhoArquivo.endsWith(Arquivo.EXTENSAO_XLS)){
+						
+							if(planilhas != null){
+								comboBox.removeAllItems();
+								for (String planilhaCombo : planilhas) {
+									comboBox.addItem(planilhaCombo);
+								}
+							}
+							
+						}else if(caminhoArquivo.endsWith(Arquivo.EXTENSAO_XLSX)){
+							
+							if(planilhas != null){
+								comboBox.removeAllItems();
+								for (String planilhaCombo : planilhas) {
+									comboBox.addItem(planilhaCombo);
+								}
+							}
+						}
+						
+						System.out.println(caminhoArquivo);
+						editorLocalArquivoExcel.setText(caminhoArquivo);
 					}else{
-						System.out.println("Nao abriu");
+//						TODO: nao foi possivelinstanciar o arquivo.
+						
 					}
+					
+				}else{
+					//TODO: JOPTIOn Pane > nao foi possivel abrir o arquivo informado.
+					System.out.println("Nao abriu");
+				}
+			}
+
+			/**
+			 * MŽtodo respons‡vel por instanciar arquivo que ser‡ lido.
+			 * 
+			 * @return
+			 */
+			private Arquivo montarArquivo() {
+				
+				String nomeArquivo = manipularArquivo.recuperarNomeArquivo(caminhoArquivo);
+				String diretorioEntrada = manipularArquivo.recuperarDiretorioEntrada(caminhoArquivo, nomeArquivo);
+				String diretorioSaida = null;
+				String extensaoArquivo = manipularArquivo.recuperarExtensaoArquivo(nomeArquivo);
+				
+				return new Arquivo(nomeArquivo, diretorioEntrada, diretorioSaida, extensaoArquivo);
 			}
 		};
 	}
@@ -161,7 +208,5 @@ public class FormCarregarArquivo extends FormPrincipal {
 			}
 		};
 	}
-	
-	
 
 }

@@ -13,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class FormBemVindo extends FormPrincipal{
+
 	public FormBemVindo() {
 	}
 
@@ -61,6 +62,7 @@ public class FormBemVindo extends FormPrincipal{
 					.addContainerGap(197, Short.MAX_VALUE))
 		);
 		painelBemVindo.setLayout(gl_painelEditavel);
+		
 		
 		
 		return painelBemVindo;

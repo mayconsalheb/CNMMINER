@@ -3,8 +3,10 @@
  */
 package br.com.cnmminer.bean;
 
+
 /**
  * Bean do arquivo.
+ * 
  * @author felipe
  *
  */
@@ -20,6 +22,14 @@ public class Arquivo {
 	private String diretorioSaida;
 	private String extensao;
 	
+	public Arquivo(String nomeArquivo, String diretorioEntrada, String diretorioSaida, String extensaoArquivo) {
+		
+		this.setNomeArquivo(nomeArquivo);
+		this.setDiretorioEntrada(diretorioEntrada);
+		this.setDiretorioSaida(diretorioSaida);
+		this.setExtensao(extensaoArquivo);
+		
+	}
 	public String getNomeArquivo() {
 		return nomeArquivo;
 	}
@@ -44,5 +54,4 @@ public class Arquivo {
 	public void setExtensao(String extensao) {
 		this.extensao = extensao;
 	}
-
 }
