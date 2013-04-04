@@ -2,7 +2,11 @@ package br.com.cnmminer.formularios;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
@@ -14,20 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.JTextPane;
-import javax.swing.JList;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JCheckBox;
-import java.awt.Cursor;
+
+import br.com.cnmminer.bean.Arquivo;
 
 public abstract  class FormPrincipal extends JFrame {
 
@@ -35,6 +27,9 @@ public abstract  class FormPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private BufferedImage imagem;
+	private Arquivo arq;
+	private JFrame framePai;
+	private JFrame FrameAtual;
 
 	/**
 	 * Create the frame.
@@ -133,7 +128,31 @@ public abstract  class FormPrincipal extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	//Método deve ser transformando para abstract
+	public JFrame getFramePai() {
+		return framePai;
+	}
+
+	public void setFramePai(JFrame framePai) {
+		this.framePai = framePai;
+	}
+	
+	public JFrame getFrameAtual() {
+		return FrameAtual;
+	}
+
+	public void setFrameAtual(JFrame frameAtual) {
+		FrameAtual = frameAtual;
+	}
+	
+	public Arquivo getArq() {
+		return arq;
+	}
+
+	public void setArq(Arquivo arq) {
+		this.arq = arq;
+	}
+	
+	//Mï¿½todo deve ser transformando para abstract
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -151,16 +170,19 @@ public abstract  class FormPrincipal extends JFrame {
 		};
 	}
 	
-	//Método deve ser transformando para abstract
+	//Mï¿½todo deve ser transformando para abstract
 	public ActionListener retornaEventoBotaoVoltar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				
+				if(getFramePai() != null){
+					setVisible(false);
+					getFramePai().setVisible(true);
+				}
 			}
 		};
 	}
 	
-	//Método deve ser transformando para abstract
+	//Mï¿½todo deve ser transformando para abstract
 	public ActionListener retornaEventoBotaoConcluir(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -169,7 +191,7 @@ public abstract  class FormPrincipal extends JFrame {
 		};
 	}
 		
-	//Método deve ser transformando para abstract
+	//Mï¿½todo deve ser transformando para abstract
 	public abstract JPanel painelEditavel();
 //	public JPanel painelEditavel(){
 //		return new JPanel();

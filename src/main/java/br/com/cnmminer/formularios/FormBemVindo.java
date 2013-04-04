@@ -1,6 +1,5 @@
 package br.com.cnmminer.formularios;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +18,7 @@ public class FormBemVindo extends FormPrincipal{
 
 	private static final long serialVersionUID = 3318317450049633366L;
 
-	private FormCarregarArquivo formCarregarArq;
+	private FormPrincipal formCarregarArq;
 	
 	@Override
 	public JPanel painelEditavel() {
@@ -68,35 +67,14 @@ public class FormBemVindo extends FormPrincipal{
 		return painelBemVindo;
 	}
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FormPrincipal frame = new FormBemVindo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+				setVisible(false);
 				formCarregarArq = new FormCarregarArquivo();
+				formCarregarArq.setFrameAtual(formCarregarArq);
+				formCarregarArq.setFramePai(getFrameAtual());
 				formCarregarArq.setVisible(true);
-			}
-		};
-	}
-	
-	public ActionListener retornaEventoBotaoVoltar(){
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				
 			}
 		};
 	}

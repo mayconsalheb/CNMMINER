@@ -1,6 +1,8 @@
 package br.com.cnmminer.formularios;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,11 +17,7 @@ public class FormEscolherLadoSe extends FormPrincipal {
 
 	private static final long serialVersionUID = -374994753484472282L;
 	
-	public static void main(String[] args) {
-		FormEscolherLadoSe form = new FormEscolherLadoSe();
-		form.setVisible(true);
-			
-	}
+	private FormPrincipal form;
 
 	public JPanel painelEditavel() {
 
@@ -75,5 +73,26 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		painelEscolherLadoSe.setLayout(gl_painelEditavel);
 		
 		return painelEscolherLadoSe;
+	}
+	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				setVisible(false);
+				form = new FormDefinirRegras();
+				form.setArq(getArq());
+				form.setFrameAtual(form);
+				form.setFramePai(getFrameAtual());
+				form.setVisible(true);
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
 	}
 }

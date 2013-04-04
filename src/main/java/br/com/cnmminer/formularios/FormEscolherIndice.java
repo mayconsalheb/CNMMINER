@@ -1,5 +1,8 @@
 package br.com.cnmminer.formularios;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
@@ -9,7 +12,7 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Classe responsável por apresentar formulário de escolha de índice para mineração de dados.
+ * Classe responsÔøΩvel por apresentar formulÔøΩrio de escolha de ÔøΩndice para mineraÔøΩÔøΩo de dados.
  * 
  * @author felipe
  *
@@ -17,17 +20,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class FormEscolherIndice extends FormPrincipal {
 
 	private static final long serialVersionUID = 2869664018981879475L;
-
-	/**
-	 * Create the panel.
-	 */
 	
-	public static void main(String[] args) {
-		
-		FormEscolherIndice form = new FormEscolherIndice();
-		form.setVisible(true);
-		
-	}
+	private FormPrincipal form;
 
 	public FormEscolherIndice() {
 
@@ -68,5 +62,26 @@ public class FormEscolherIndice extends FormPrincipal {
 		
 		return painelEscolherIndice;
 		
+	}
+	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				setVisible(false);
+				form = new FormConcluir();
+				form.setArq(getArq());
+				form.setFrameAtual(form);
+				form.setFramePai(getFrameAtual());
+				form.setVisible(true);
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
 	}
 }

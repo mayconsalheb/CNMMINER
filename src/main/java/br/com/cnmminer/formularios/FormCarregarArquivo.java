@@ -34,17 +34,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 	private JEditorPane editorLocalArquivoExcel;
 	private JComboBox comboBox;
 	private ManipularArquivo manipularArquivo;
-	
-	/**
-	 * Create the panel.
-	 */
-	
-	public static void main(String[] args) {
-		
-		FormCarregarArquivo form = new FormCarregarArquivo();
-		form.setVisible(true);
-		
-	}
+	private FormPrincipal form;
 
 	@Override
 	public JPanel painelEditavel() {
@@ -169,7 +159,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 			}
 
 			/**
-			 * MŽtodo respons‡vel por instanciar arquivo que ser‡ lido.
+			 * Mï¿½todo responsï¿½vel por instanciar arquivo que serï¿½ lido.
 			 * 
 			 * @return
 			 */
@@ -188,7 +178,12 @@ public class FormCarregarArquivo extends FormPrincipal {
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				
+				setVisible(false);
+				form = new FormEscolherLadoEntao();
+				form.setFrameAtual(form);
+				form.setFramePai(getFrameAtual());
+				form.setArq(arquivo);
+				form.setVisible(true);
 			}
 		};
 	}
@@ -197,14 +192,6 @@ public class FormCarregarArquivo extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				
-			}
-		};
-	}
-	
-	public ActionListener retornaEventoBotaoVoltar(){
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
 			}
 		};
 	}

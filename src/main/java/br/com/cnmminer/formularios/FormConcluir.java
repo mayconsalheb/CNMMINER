@@ -1,5 +1,8 @@
 package br.com.cnmminer.formularios;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -9,7 +12,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Classe respons‡vel por apresentar o formul‡rio de conclus‹o.
+ * Classe responsï¿½vel por apresentar o formulï¿½rio de conclusï¿½o.
  * 
  * @author felipe
  *
@@ -17,14 +20,10 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class FormConcluir extends FormPrincipal {
 
 	private static final long serialVersionUID = -8271451179126884611L;
+	
+	private FormPrincipal form;
 
 	public FormConcluir() {
-	}
-	
-	public static void main(String[] args) {
-		
-		FormConcluir form = new FormConcluir();
-		form.setVisible(true);
 	}
 	
 	public JPanel painelEditavel() {
@@ -67,6 +66,22 @@ public class FormConcluir extends FormPrincipal {
 		
 		
 		return painelConcluir;
+	}
+	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
 	}
 
 }

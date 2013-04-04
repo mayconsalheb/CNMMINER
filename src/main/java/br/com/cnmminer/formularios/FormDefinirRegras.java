@@ -1,5 +1,8 @@
 package br.com.cnmminer.formularios;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -10,7 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Classe responsável por apresentar formulário de definição de regras de mineração.
+ * Classe responsÔøΩvel por apresentar formulÔøΩrio de definiÔøΩÔøΩo de regras de mineraÔøΩÔøΩo.
  * 
  * @author felipe
  *
@@ -19,15 +22,10 @@ public class FormDefinirRegras extends FormPrincipal {
 
 	private static final long serialVersionUID = 464135877308267958L;
 	
+	private FormPrincipal form;
+	
 	public FormDefinirRegras() {
 
-	}
-	
-	public static void main(String[] args) {
-		
-		FormDefinirRegras form = new FormDefinirRegras();
-		form.setVisible(true);
-		
 	}
 
 	public JPanel painelEditavel() {
@@ -97,5 +95,26 @@ public class FormDefinirRegras extends FormPrincipal {
 		
 		
 		return painelDefinirRegras;
+	}
+	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				setVisible(false);
+				form = new FormEscolherIndice();
+				form.setArq(getArq());
+				form.setFrameAtual(form);
+				form.setFramePai(getFrameAtual());
+				form.setVisible(true);
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
 	}
 }

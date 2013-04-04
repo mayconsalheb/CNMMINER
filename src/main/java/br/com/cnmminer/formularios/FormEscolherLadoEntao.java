@@ -3,6 +3,9 @@
  */
 package br.com.cnmminer.formularios;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
@@ -13,7 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Classe responsável por apresentar formulário de escolha do lado ENTÃO para mineração de dados.
+ * Classe responsÔøΩvel por apresentar formulÔøΩrio de escolha do lado ENTÔøΩO para mineraÔøΩÔøΩo de dados.
  * 
  * @author felipe
  *
@@ -21,22 +24,17 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class FormEscolherLadoEntao extends FormPrincipal {
 
 	private static final long serialVersionUID = 5153797266678607223L;
+	
+	private FormPrincipal form;
 
 	public FormEscolherLadoEntao() {
-	}
-	
-public static void main(String[] args) {
-		
-	FormEscolherLadoEntao form = new FormEscolherLadoEntao();
-		form.setVisible(true);
-		
 	}
 	
 	public JPanel painelEditavel() {
 
 		JPanel painelLadoEntao = new JPanel();
 		
-JLabel lblEscolhaDoLado = DefaultComponentFactory.getInstance().createLabel("Escolha do lado ENT\u00C3O");
+		JLabel lblEscolhaDoLado = DefaultComponentFactory.getInstance().createLabel("Escolha do lado ENT\u00C3O");
 		
 		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("Selecione neste campo qual coluna da tabela ser\u00E1 o lado ENT\u00C3O");
 		
@@ -72,6 +70,27 @@ JLabel lblEscolhaDoLado = DefaultComponentFactory.getInstance().createLabel("Esc
 		
 		
 		return painelLadoEntao;
+	}
+	
+	public ActionListener retornaEventoBotaoAvancar(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				setVisible(false);
+				form = new FormEscolherLadoSe();
+				form.setArq(getArq());
+				form.setFrameAtual(form);
+				form.setFramePai(getFrameAtual());
+				form.setVisible(true);
+			}
+		};
+	}
+	
+	public ActionListener retornaEventoBotaoConcluir(){
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				
+			}
+		};
 	}
 
 }
