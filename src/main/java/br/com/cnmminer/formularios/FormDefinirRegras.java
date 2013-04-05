@@ -103,6 +103,7 @@ public class FormDefinirRegras extends FormPrincipal {
 				setVisible(false);
 				form = new FormEscolherIndice();
 				form.setArq(getArq());
+				form.setPlanilha(getPlanilha());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);

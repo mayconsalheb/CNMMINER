@@ -18,6 +18,7 @@ public class PlanilhaExcel {
 	private ArrayList<String> colunas;
 	private HSSFWorkbook workbookXls;
 	private XSSFWorkbook workbookXlsx;
+	private String planilhaEscolhida;
 
 	
 	public ArrayList<String> getPlanilhas() {
@@ -50,6 +51,14 @@ public class PlanilhaExcel {
 
 	public void setWorkbookXlsx(XSSFWorkbook workbookXlsx) {
 		this.workbookXlsx = workbookXlsx;
+	}
+
+	public String getPlanilhaEscolhida() {
+		return planilhaEscolhida;
+	}
+
+	public void setPlanilhaEscolhida(String planilhaEscolhida) {
+		this.planilhaEscolhida = planilhaEscolhida;
 	}
 
 	

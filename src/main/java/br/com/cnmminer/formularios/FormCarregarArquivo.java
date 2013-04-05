@@ -35,6 +35,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 	private JComboBox comboBox;
 	private ManipularArquivo manipularArquivo;
 	private FormPrincipal form;
+	private PlanilhaExcel planilhaExcel;
 
 	@Override
 	public JPanel painelEditavel() {
@@ -120,7 +121,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 					manipularArquivo = new ManipularArquivo();
 					
 					arquivo = montarArquivo();
-					PlanilhaExcel planilhaExcel = new PlanilhaExcel();
+					planilhaExcel = new PlanilhaExcel();
 					
 					if(manipularArquivo.abrirArquivo(arquivo, planilhaExcel)){
 				
@@ -183,6 +184,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setArq(arquivo);
+				form.setPlanilha(planilhaExcel);
 				form.setVisible(true);
 			}
 		};

@@ -81,6 +81,7 @@ public class FormEscolherLadoSe extends FormPrincipal {
 				setVisible(false);
 				form = new FormDefinirRegras();
 				form.setArq(getArq());
+				form.setPlanilha(getPlanilha());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);

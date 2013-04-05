@@ -78,6 +78,7 @@ public class FormEscolherLadoEntao extends FormPrincipal {
 				setVisible(false);
 				form = new FormEscolherLadoSe();
 				form.setArq(getArq());
+				form.setPlanilha(getPlanilha());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);

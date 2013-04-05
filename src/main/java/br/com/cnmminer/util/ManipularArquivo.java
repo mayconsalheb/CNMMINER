@@ -8,7 +8,11 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.cnmminer.bean.Arquivo;
@@ -24,6 +28,9 @@ public class ManipularArquivo {
 
 	private File file;
 	private FileInputStream fis;
+	private Row linhaPlanilha;
+	private Cell celulaPlanilha;
+	private Sheet sheet;
 	
 	
 	/**
@@ -79,7 +86,6 @@ public class ManipularArquivo {
 	 */
 	public ArrayList<String> recuperarPlanilhasArquivo(Arquivo arquivo, PlanilhaExcel planilhaExcel) {
 		
-		
 		ArrayList<String> planilhas = new ArrayList<String>();
 		
 		if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLS)){
@@ -89,8 +95,6 @@ public class ManipularArquivo {
 				planilhas.add(planilhaExcel.getWorkbookXls().getSheetName(i));
 			}
 			
-			planilhaExcel.setPlanilhas(planilhas);
-			
 		}else if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLSX)){
 			
 			for(int i=0; i<planilhaExcel.getWorkbookXlsx().getNumberOfSheets();i++){
@@ -98,10 +102,9 @@ public class ManipularArquivo {
 				planilhas.add(planilhaExcel.getWorkbookXlsx().getSheetName(i));
 			}
 			
-			planilhaExcel.setPlanilhas(planilhas);
-			
 		}
-		
+
+		planilhaExcel.setPlanilhas(planilhas);
 
 		return planilhas;
 	}
@@ -131,7 +134,6 @@ public class ManipularArquivo {
 					fis = new FileInputStream(file);
 					planilhaExcel.setWorkbookXls(new HSSFWorkbook(fis));					
 					
-					
 					return true;
 					
 				} catch (Exception e) {
@@ -145,7 +147,6 @@ public class ManipularArquivo {
 					fis = new FileInputStream(file);
 					planilhaExcel.setWorkbookXlsx(new XSSFWorkbook(fis));
 					
-					
 					return true;
 					
 				}catch (Exception e) {
@@ -156,21 +157,46 @@ public class ManipularArquivo {
 			
 		}
 			
-			
-			
 		return false;
 	}
-	
-	public static void main(String[] args) {
-		
-		String diretorio = "/Users/felipe/Documents/UCB/ficha_3.5.xls";
-		StringTokenizer st = new StringTokenizer("/Users/felipe/Documents/UCB/ficha_3.5.xls", "/");
-		String nomeArquivo = null;
-		while(st.hasMoreTokens()){
-			nomeArquivo = st.nextToken();
-		}
 
+	/**
+	 * MŽtodo respons‡vel por recuperar as colunas do arquivo.
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> recuperarColunas(Arquivo arquivo, PlanilhaExcel planilhaExcel) {
+//TODO: verificar se funciona§
+		ArrayList<String> colunas = new ArrayList<String>();
+		arquivo.getNomeArquivo();
+		if(arquivo!=null){
+			if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLS)){
+				
+				sheet = planilhaExcel.getWorkbookXls().getSheet(planilhaExcel.getPlanilhaEscolhida());
+				//TODO: Tratar e recuperar as colunas
+				linhaPlanilha = sheet.getRow(0);
+				
+				for(int i=0; i<linhaPlanilha.getLastCellNum();i++){
+					
+					colunas.add(linhaPlanilha.getCell(i).getStringCellValue());
+				}
+				
+				
+			}else if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLSX)){
+				
+				sheet = planilhaExcel.getWorkbookXlsx().getSheet(planilhaExcel.getPlanilhaEscolhida());
+				//TODO: Tratar e recuperar as colunas
+				linhaPlanilha = sheet.getRow(0);
+				
+				for(int i=0; i<linhaPlanilha.getLastCellNum();i++){
+					
+					colunas.add(linhaPlanilha.getCell(i).getStringCellValue());
+				}
+			}
+			planilhaExcel.setColunas(colunas);
+		}
 		
-		System.out.println(diretorio);
+		return colunas;
 	}
+	
 }

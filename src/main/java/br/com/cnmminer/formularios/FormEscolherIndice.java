@@ -70,6 +70,7 @@ public class FormEscolherIndice extends FormPrincipal {
 				setVisible(false);
 				form = new FormConcluir();
 				form.setArq(getArq());
+				form.setPlanilha(getPlanilha());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);

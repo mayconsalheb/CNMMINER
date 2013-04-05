@@ -20,6 +20,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 
 import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.PlanilhaExcel;
 
 public abstract  class FormPrincipal extends JFrame {
 
@@ -28,6 +29,7 @@ public abstract  class FormPrincipal extends JFrame {
 	private JPanel contentPane;
 	private BufferedImage imagem;
 	private Arquivo arq;
+	private PlanilhaExcel planilha;
 	private JFrame framePai;
 	private JFrame FrameAtual;
 
@@ -196,4 +198,12 @@ public abstract  class FormPrincipal extends JFrame {
 //	public JPanel painelEditavel(){
 //		return new JPanel();
 //	}
+
+	public PlanilhaExcel getPlanilha() {
+		return planilha;
+	}
+
+	public void setPlanilha(PlanilhaExcel planilha) {
+		this.planilha = planilha;
+	}
 }
