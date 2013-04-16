@@ -19,6 +19,7 @@ public class PlanilhaExcel {
 	private HSSFWorkbook workbookXls;
 	private XSSFWorkbook workbookXlsx;
 	private String planilhaEscolhida;
+	private String colunaLadoEntaoEscolhida;
 
 	
 	public ArrayList<String> getPlanilhas() {
@@ -60,6 +61,15 @@ public class PlanilhaExcel {
 	public void setPlanilhaEscolhida(String planilhaEscolhida) {
 		this.planilhaEscolhida = planilhaEscolhida;
 	}
+
+	public String getColunaLadoEntaoEscolhida() {
+		return colunaLadoEntaoEscolhida;
+	}
+
+	public void setColunaLadoEntaoEscolhida(String colunaLadoEntaoEscolhida) {
+		this.colunaLadoEntaoEscolhida = colunaLadoEntaoEscolhida;
+	}
+
 
 	
 }

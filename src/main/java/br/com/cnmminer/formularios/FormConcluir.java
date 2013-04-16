@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
+import br.com.cnmminer.bean.PlanilhaExcel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
@@ -19,13 +23,16 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  */
 public class FormConcluir extends FormPrincipal {
 
+	public FormConcluir(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
+		super(arquivo, planilhaExcel, cnm);
+	}
+
 	private static final long serialVersionUID = -8271451179126884611L;
 	
 	private FormPrincipal form;
+	private Arquivo arquivo;
+	private PlanilhaExcel planilhaExcel;
 
-	public FormConcluir() {
-	}
-	
 	public JPanel painelEditavel() {
 
 		JPanel painelConcluir = new JPanel();

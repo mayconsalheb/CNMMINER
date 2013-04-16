@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -166,37 +168,49 @@ public class ManipularArquivo {
 	 * @return
 	 */
 	public ArrayList<String> recuperarColunas(Arquivo arquivo, PlanilhaExcel planilhaExcel) {
-//TODO: verificar se funciona§
+		
 		ArrayList<String> colunas = new ArrayList<String>();
-		arquivo.getNomeArquivo();
 		if(arquivo!=null){
+			
 			if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLS)){
 				
 				sheet = planilhaExcel.getWorkbookXls().getSheet(planilhaExcel.getPlanilhaEscolhida());
-				//TODO: Tratar e recuperar as colunas
+
 				linhaPlanilha = sheet.getRow(0);
-				
-				for(int i=0; i<linhaPlanilha.getLastCellNum();i++){
-					
-					colunas.add(linhaPlanilha.getCell(i).getStringCellValue());
-				}
-				
+				colunas = popularColunas(linhaPlanilha, colunas);
 				
 			}else if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLSX)){
 				
 				sheet = planilhaExcel.getWorkbookXlsx().getSheet(planilhaExcel.getPlanilhaEscolhida());
-				//TODO: Tratar e recuperar as colunas
+
 				linhaPlanilha = sheet.getRow(0);
+				colunas = popularColunas(linhaPlanilha, colunas);
 				
-				for(int i=0; i<linhaPlanilha.getLastCellNum();i++){
-					
-					colunas.add(linhaPlanilha.getCell(i).getStringCellValue());
-				}
 			}
 			planilhaExcel.setColunas(colunas);
 		}
 		
 		return colunas;
+	}
+
+	/**
+	 * MŽtodo respons‡vel por popular as colunas recuperadas da planilha
+	 * 
+	 * @param line
+	 * @param colunas
+	 * @return 
+	 */
+	private ArrayList<String> popularColunas(Row line, ArrayList<String> colunas) {
+		
+		if(line != null)
+		{
+			for(int i=0; i<linhaPlanilha.getLastCellNum();i++){
+				
+				colunas.add(linhaPlanilha.getCell(i).getStringCellValue());
+			}
+		}
+		return colunas;
+		
 	}
 	
 }

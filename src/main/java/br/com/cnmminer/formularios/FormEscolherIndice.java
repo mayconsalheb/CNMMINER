@@ -9,6 +9,10 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
+import br.com.cnmminer.bean.PlanilhaExcel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
@@ -19,12 +23,14 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  */
 public class FormEscolherIndice extends FormPrincipal {
 
+
 	private static final long serialVersionUID = 2869664018981879475L;
 	
 	private FormPrincipal form;
 
-	public FormEscolherIndice() {
 
+	public FormEscolherIndice(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
+		super(arquivo, planilhaExcel, cnm);
 	}
 
 	public JPanel painelEditavel(){
@@ -68,9 +74,7 @@ public class FormEscolherIndice extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);
-				form = new FormConcluir();
-				form.setArq(getArq());
-				form.setPlanilha(getPlanilha());
+				form = new FormConcluir(getArq(), getPlanilha(), getCnm());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);

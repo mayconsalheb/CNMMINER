@@ -16,11 +16,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
+import javax.swing.JCheckBox;
 
 public abstract  class FormPrincipal extends JFrame {
 
@@ -30,13 +35,15 @@ public abstract  class FormPrincipal extends JFrame {
 	private BufferedImage imagem;
 	private Arquivo arq;
 	private PlanilhaExcel planilha;
+	private Cnm cnm;
 	private JFrame framePai;
 	private JFrame FrameAtual;
 
 	/**
 	 * Create the frame.
 	 */
-	public FormPrincipal() {
+	public FormPrincipal(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm nmc) {
+	
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 659, 462);
@@ -91,6 +98,13 @@ public abstract  class FormPrincipal extends JFrame {
 		
 		JPanel painelImagem = new JPanel();
 		
+		if(arq == null)
+			setArq(arquivo);
+		if(planilha == null)
+			setPlanilha(planilhaExcel);
+		if(cnm == null)
+			setCnm(nmc);
+		
 		JPanel painelEditavel = painelEditavel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -116,7 +130,7 @@ public abstract  class FormPrincipal extends JFrame {
 					.addComponent(painelRodape, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		
-
+		
 		//Adicionando imagem
 		try {
 			imagem = ImageIO.read(new File("src/main/resources/imagens/banco-de-dados-web.png"));
@@ -205,5 +219,13 @@ public abstract  class FormPrincipal extends JFrame {
 
 	public void setPlanilha(PlanilhaExcel planilha) {
 		this.planilha = planilha;
+	}
+	
+	public Cnm getCnm() {
+		return cnm;
+	}
+
+	public void setCnm(Cnm nmc) {
+		this.cnm = nmc;
 	}
 }

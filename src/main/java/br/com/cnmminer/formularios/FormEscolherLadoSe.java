@@ -11,14 +11,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
+import br.com.cnmminer.bean.PlanilhaExcel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class FormEscolherLadoSe extends FormPrincipal {
 
+	public FormEscolherLadoSe(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
+		super(arquivo, planilhaExcel, cnm);
+	}
+
 	private static final long serialVersionUID = -374994753484472282L;
 	
 	private FormPrincipal form;
-
+	
+	
 	public JPanel painelEditavel() {
 
 		JPanel painelEscolherLadoSe = new JPanel();
@@ -35,6 +44,8 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		
 		JPanel painelLadoSe = new JPanel();
 		JScrollPane scroller = new JScrollPane(painelLadoSe);
+		
+		System.out.println(getPlanilha().getColunaLadoEntaoEscolhida());
 		painelEscolherLadoSe.add(scroller, BorderLayout.CENTER);
 
 		
@@ -79,9 +90,7 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);
-				form = new FormDefinirRegras();
-				form.setArq(getArq());
-				form.setPlanilha(getPlanilha());
+				form = new FormDefinirRegras(getArq(), getPlanilha(), getCnm());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);

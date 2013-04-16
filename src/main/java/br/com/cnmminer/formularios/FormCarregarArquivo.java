@@ -12,10 +12,12 @@ import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
 import br.com.cnmminer.util.ManipularArquivo;
 
@@ -23,7 +25,9 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class FormCarregarArquivo extends FormPrincipal {
 
-	public FormCarregarArquivo() {
+
+	public FormCarregarArquivo(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm) {
+		super(arquivo, planilha, cnm);
 	}
 
 	private static final long serialVersionUID = 2033196326835124700L;
@@ -149,11 +153,15 @@ public class FormCarregarArquivo extends FormPrincipal {
 						System.out.println(caminhoArquivo);
 						editorLocalArquivoExcel.setText(caminhoArquivo);
 					}else{
+						JOptionPane.showMessageDialog(form,
+							    "N‹o foi poss’vel instanciar o arquivo!");
 //						TODO: nao foi possivelinstanciar o arquivo.
 						
 					}
 					
 				}else{
+					JOptionPane.showMessageDialog(form,
+						    "N‹o foi poss’vel abrir o arquivo selecionado!");
 					//TODO: JOPTIOn Pane > nao foi possivel abrir o arquivo informado.
 					System.out.println("Nao abriu");
 				}
@@ -179,13 +187,17 @@ public class FormCarregarArquivo extends FormPrincipal {
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
-				form = new FormEscolherLadoEntao();
-				form.setFrameAtual(form);
-				form.setFramePai(getFrameAtual());
-				form.setArq(arquivo);
-				form.setPlanilha(planilhaExcel);
-				form.setVisible(true);
+				if(arquivo == null || planilhaExcel == null){
+					JOptionPane.showMessageDialog(form, "Para prosseguir deve escolher um arquivo!",
+							"AVISO", JOptionPane.WARNING_MESSAGE);
+				}else{
+					setVisible(false);
+					planilhaExcel.setPlanilhaEscolhida(comboBox.getSelectedItem().toString());
+					form = new FormEscolherLadoEntao(arquivo, planilhaExcel, getCnm());
+					form.setFrameAtual(form);
+					form.setFramePai(getFrameAtual());
+					form.setVisible(true);
+				}
 			}
 		};
 	}

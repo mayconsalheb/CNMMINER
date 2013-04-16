@@ -9,19 +9,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
+import br.com.cnmminer.bean.PlanilhaExcel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class FormBemVindo extends FormPrincipal{
 
-	public FormBemVindo() {
+
+	public FormBemVindo(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm) {
+		super(arquivo, planilha, cnm);
 	}
 
 	private static final long serialVersionUID = 3318317450049633366L;
 
 	private FormPrincipal formCarregarArq;
+	private Arquivo arq;
+	private PlanilhaExcel planilha;
 	
 	@Override
-	public JPanel painelEditavel() {
+	public JPanel painelEditavel(){
 
 		JPanel painelBemVindo = new JPanel();
 		
@@ -69,9 +77,10 @@ public class FormBemVindo extends FormPrincipal{
 	
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
+
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);
-				formCarregarArq = new FormCarregarArquivo();
+				formCarregarArq = new FormCarregarArquivo(arq, planilha, getCnm());
 				formCarregarArq.setFrameAtual(formCarregarArq);
 				formCarregarArq.setFramePai(getFrameAtual());
 				formCarregarArq.setVisible(true);

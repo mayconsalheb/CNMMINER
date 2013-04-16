@@ -14,7 +14,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormPrincipal frame = new FormBemVindo();
+					FormPrincipal frame = new FormBemVindo(null, null, null);
 					frame.setFrameAtual(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
