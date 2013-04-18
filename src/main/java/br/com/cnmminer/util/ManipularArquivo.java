@@ -60,7 +60,7 @@ public class ManipularArquivo {
 	 */
 	public String recuperarDiretorioEntrada(String caminhoArquivo, String nomeArquivo) {
 		
-		caminhoArquivo = caminhoArquivo.replaceFirst(nomeArquivo, "").trim();
+		caminhoArquivo = caminhoArquivo.replace(nomeArquivo, "").trim();
 		return caminhoArquivo;
 	}
 
