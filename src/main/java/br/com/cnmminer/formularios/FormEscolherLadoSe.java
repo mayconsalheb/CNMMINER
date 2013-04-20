@@ -1,21 +1,29 @@
 package br.com.cnmminer.formularios;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+import javax.swing.JCheckBox;
 
 public class FormEscolherLadoSe extends FormPrincipal {
 
@@ -33,55 +41,58 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		JPanel painelEscolherLadoSe = new JPanel();
 
 		JLabel lblEscolhaDasCausas = DefaultComponentFactory.getInstance().createLabel("Escolha das causas");
+		lblEscolhaDasCausas.setBounds(27, 23, 144, 14);
 		
 		JLabel lblMarqueTodosOs = DefaultComponentFactory.getInstance().createLabel("Marque todos os camos que poder\u00E3o ser usados pelo sistema");
+		lblMarqueTodosOs.setBounds(27, 70, 364, 14);
 		
 		JLabel lblAFim = DefaultComponentFactory.getInstance().createLabel("a fim de descobrir rela\u00E7\u00E0o entre eles e o lado ENT\u00C0O informado");
+		lblAFim.setBounds(27, 90, 376, 14);
 		
 		JLabel lblAnteriormente = DefaultComponentFactory.getInstance().createLabel("anteriormente.");
+		lblAnteriormente.setBounds(27, 110, 117, 14);
 		
 		JLabel lblAtributosDasCausas = DefaultComponentFactory.getInstance().createLabel("Atributos das causas:");
+		lblAtributosDasCausas.setBounds(27, 166, 165, 14);
 		
 		JPanel painelLadoSe = new JPanel();
 		JScrollPane scroller = new JScrollPane(painelLadoSe);
+		scroller.setBounds(0, 0, 0, 0);
 		
 		System.out.println(getPlanilha().getColunaLadoEntaoEscolhida());
+		painelEscolherLadoSe.setLayout(null);
 		painelEscolherLadoSe.add(scroller, BorderLayout.CENTER);
-
+		painelEscolherLadoSe.add(scroller);
+		painelEscolherLadoSe.add(lblAnteriormente);
+		painelEscolherLadoSe.add(lblAFim);
+		painelEscolherLadoSe.add(lblAtributosDasCausas);
+		painelEscolherLadoSe.add(lblMarqueTodosOs);
+		painelEscolherLadoSe.add(lblEscolhaDasCausas);
 		
-		GroupLayout gl_painelEditavel = new GroupLayout(painelEscolherLadoSe);
-
-		gl_painelEditavel.setHorizontalGroup(
-			gl_painelEditavel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_painelEditavel.createSequentialGroup()
-					.addGap(27)
-					.addGroup(gl_painelEditavel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(painelLadoSe, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblAnteriormente, Alignment.LEADING)
-						.addComponent(lblAFim, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblAtributosDasCausas, Alignment.LEADING)
-						.addComponent(lblMarqueTodosOs, Alignment.LEADING)
-						.addComponent(lblEscolhaDasCausas, Alignment.LEADING))
-					.addContainerGap(30, Short.MAX_VALUE))
-		);
-		gl_painelEditavel.setVerticalGroup(
-			gl_painelEditavel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_painelEditavel.createSequentialGroup()
-					.addGap(23)
-					.addComponent(lblEscolhaDasCausas)
-					.addGap(33)
-					.addComponent(lblMarqueTodosOs)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblAFim)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblAnteriormente)
-					.addGap(42)
-					.addComponent(lblAtributosDasCausas)
-					.addGap(18)
-					.addComponent(painelLadoSe, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(15, Short.MAX_VALUE))
-		);
-		painelEscolherLadoSe.setLayout(gl_painelEditavel);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 223, 419, 98);
+		painelEscolherLadoSe.add(scrollPane);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		JCheckBox chckbxNewCheckBox;
+	   
+		
+		
+		ArrayList<String>colunas=getPlanilha().getColunas();
+		
+		for (int i = 0; i < colunas.size(); i++) {
+			System.out.println("Nome"+colunas.get(i));
+			chckbxNewCheckBox= new JCheckBox(colunas.get(i));
+			scrollPane.setColumnHeaderView(chckbxNewCheckBox);
+			
+		}
+		
+		
+		
+		
+	
+		
 		
 		return painelEscolherLadoSe;
 	}
