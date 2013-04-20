@@ -193,7 +193,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 				}else{
 					setVisible(false);
 					planilhaExcel.setPlanilhaEscolhida(comboBox.getSelectedItem().toString());
-					form = new FormEscolherLadoEntao(arquivo, planilhaExcel, getCnm());
+					form = new FormEscolherIndice(arquivo, planilhaExcel, getCnm());
 					form.setFrameAtual(form);
 					form.setFramePai(getFrameAtual());
 					form.setVisible(true);

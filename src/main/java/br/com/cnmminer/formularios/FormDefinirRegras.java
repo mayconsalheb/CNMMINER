@@ -35,7 +35,6 @@ public class FormDefinirRegras extends FormPrincipal {
 	private JSpinner spinnerOrdem;
 	private JSpinner spinnerSuporte;
 	private JSpinner spinnerNumCasos;
-	private Cnm cnm;
 	
 
 	public JPanel painelEditavel() {
@@ -115,13 +114,13 @@ public class FormDefinirRegras extends FormPrincipal {
 
 				if(validarSpinners(spinnerOrdem, spinnerNumCasos, spinnerSuporte)){
 
-					cnm = new Cnm(Integer.parseInt(spinnerNumCasos.getValue().toString()), 
-							      Integer.parseInt(spinnerOrdem.getValue().toString()), 
-								  Integer.parseInt(spinnerSuporte.getValue().toString()), 
-								  null);
+					//Settar cnm
+					getCnm().setNumeroCasos(Integer.parseInt(spinnerNumCasos.getValue().toString()));
+					getCnm().setOrderMaxima(Integer.parseInt(spinnerOrdem.getValue().toString()));
+					getCnm().setSuporteMinimo(Integer.parseInt(spinnerSuporte.getValue().toString()));
 					
 					setVisible(false);
-					form = new FormEscolherIndice(getArq(), getPlanilha(), cnm);
+					form = new FormConcluir(getArq(), getPlanilha(), getCnm());
 					form.setFrameAtual(form);
 					form.setFramePai(getFrameAtual());
 					form.setVisible(true);

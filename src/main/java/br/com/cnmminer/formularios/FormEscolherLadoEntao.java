@@ -56,7 +56,7 @@ public class FormEscolherLadoEntao extends FormPrincipal {
 		
 		comboBoxColunaEntao = new JComboBox();
 		
-		ArrayList<String> colunas = manipularArquivo.recuperarColunas(super.getArq(), super.getPlanilha());
+		ArrayList<String> colunas = getPlanilha().getColunas();
 		
 		if(colunas.size() != 0){
 			comboBoxColunaEntao.removeAllItems();

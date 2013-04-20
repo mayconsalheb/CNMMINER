@@ -2,16 +2,19 @@ package br.com.cnmminer.formularios;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
+import br.com.cnmminer.util.ManipularArquivo;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -27,8 +30,11 @@ public class FormEscolherIndice extends FormPrincipal {
 	private static final long serialVersionUID = 2869664018981879475L;
 	
 	private FormPrincipal form;
-
-
+	private Cnm cnm;
+	private ManipularArquivo manipularArquivo;
+	private ArrayList<String> colunas;
+	private JComboBox comboBox;
+	
 	public FormEscolherIndice(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
 		super(arquivo, planilhaExcel, cnm);
 	}
@@ -41,7 +47,26 @@ public class FormEscolherIndice extends FormPrincipal {
 		
 		JLabel lblEscolhaOIndice = DefaultComponentFactory.getInstance().createLabel("Escolha o indice a ser usado na descoberta de regras:");
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		manipularArquivo = new ManipularArquivo();
+		colunas = new ArrayList<String>();
+		
+		colunas = manipularArquivo.recuperarColunas(super.getArq(), super.getPlanilha());
+		
+		
+		if(colunas.size() != 0){
+			comboBox.removeAllItems();
+			for (String planilhaCombo : colunas) {
+				comboBox.addItem(planilhaCombo);
+			}
+		}else{
+			JOptionPane.showMessageDialog(form,
+				    "N‹o existe coluna para a planilha selecionada!",
+				    "AVISO", JOptionPane.WARNING_MESSAGE);
+			//TODO: voltar para o formulario anterior
+			retornaEventoBotaoVoltar();
+		}
+		
 		GroupLayout gl_painelEditavel = new GroupLayout(painelEscolherIndice);
 		gl_painelEditavel.setHorizontalGroup(
 			gl_painelEditavel.createParallelGroup(Alignment.LEADING)
@@ -74,7 +99,16 @@ public class FormEscolherIndice extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);
-				form = new FormConcluir(getArq(), getPlanilha(), getCnm());
+				
+				colunas.remove(comboBox.getSelectedItem().toString());
+				getPlanilha().setColunas(colunas);
+				
+				cnm = new Cnm(null, 
+					      null, 
+						  null, 
+						  comboBox.getSelectedItem().toString());
+				
+				form = new FormEscolherLadoEntao(getArq(), getPlanilha(), cnm);
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
 				form.setVisible(true);
