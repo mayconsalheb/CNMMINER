@@ -90,10 +90,6 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		
 		
 		
-		
-	
-		
-		
 		return painelEscolherLadoSe;
 	}
 	
