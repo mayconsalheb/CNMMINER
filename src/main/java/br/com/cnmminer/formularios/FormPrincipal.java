@@ -168,7 +168,7 @@ public abstract  class FormPrincipal extends JFrame {
 		this.arq = arq;
 	}
 	
-	//M�todo deve ser transformando para abstract
+	//MÔøΩtodo deve ser transformando para abstract
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -186,7 +186,7 @@ public abstract  class FormPrincipal extends JFrame {
 		};
 	}
 	
-	//M�todo deve ser transformando para abstract
+	//MÔøΩtodo deve ser transformando para abstract
 	public ActionListener retornaEventoBotaoVoltar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -198,7 +198,7 @@ public abstract  class FormPrincipal extends JFrame {
 		};
 	}
 	
-	//M�todo deve ser transformando para abstract
+	//MÔøΩtodo deve ser transformando para abstract
 	public ActionListener retornaEventoBotaoConcluir(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -207,7 +207,7 @@ public abstract  class FormPrincipal extends JFrame {
 		};
 	}
 		
-	//M�todo deve ser transformando para abstract
+	//MÔøΩtodo deve ser transformando para abstract
 	public abstract JPanel painelEditavel();
 //	public JPanel painelEditavel(){
 //		return new JPanel();
