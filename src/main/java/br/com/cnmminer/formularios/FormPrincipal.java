@@ -132,15 +132,15 @@ public abstract  class FormPrincipal extends JFrame {
 		
 		
 		//Adicionando imagem
-	/*	try {
+		try {
 			imagem = ImageIO.read(new File("src/main/resources/imagens/banco-de-dados-web.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	 */
-		//JLabel labelImagem = new JLabel(new ImageIcon(imagem));
+	
+		JLabel labelImagem = new JLabel(new ImageIcon(imagem));
 		
-		//painelImagem.add(labelImagem);
+		painelImagem.add(labelImagem);
 		contentPane.setLayout(gl_contentPane);
 	}
 	
