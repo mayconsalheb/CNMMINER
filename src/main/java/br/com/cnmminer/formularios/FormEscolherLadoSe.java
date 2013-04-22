@@ -1,29 +1,28 @@
 package br.com.cnmminer.formularios;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
-import java.awt.Container;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.ListCellRenderer;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JCheckBox;
 
 public class FormEscolherLadoSe extends FormPrincipal {
 
@@ -34,6 +33,7 @@ public class FormEscolherLadoSe extends FormPrincipal {
 	private static final long serialVersionUID = -374994753484472282L;
 	
 	private FormPrincipal form;
+	private JList list;
 	
 	
 	public JPanel painelEditavel() {
@@ -69,26 +69,39 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		painelEscolherLadoSe.add(lblMarqueTodosOs);
 		painelEscolherLadoSe.add(lblEscolhaDasCausas);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 223, 419, 98);
-		painelEscolherLadoSe.add(scrollPane);
+		list = new JList();
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
-		JCheckBox chckbxNewCheckBox;
-	   
-		
+		Integer cont = 0;
 		
 		ArrayList<String>colunas=getPlanilha().getColunas();
+		Object[] colunasLista = new Object[colunas.size()];
 		
-		for (int i = 0; i < colunas.size(); i++) {
-			System.out.println("Nome"+colunas.get(i));
-			chckbxNewCheckBox= new JCheckBox(colunas.get(i));
-			scrollPane.setColumnHeaderView(chckbxNewCheckBox);
+		for (String col : colunas) {
 			
+			colunasLista[cont] = new JCheckBox(col);
+			cont++;
 		}
 		
+		list.setListData(colunasLista);
 		
+		list.setCellRenderer(new CheckBoxCellRenderer());
+
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(27, 223, 419, 98);
+		
+		//Listener que permite que os botoes sejam marcados
+		list.addMouseListener(new MouseAdapter(){ 
+			public void mousePressed(MouseEvent e){
+				int index = list.locationToIndex(e.getPoint());         
+				if(index != -1){
+					JCheckBox checkbox = (JCheckBox) list.getModel().getElementAt(index);
+					checkbox.setSelected(!checkbox.isSelected());           
+					repaint();
+					}
+				}
+			});
+		
+		painelEscolherLadoSe.add(scrollPane);
 		
 		return painelEscolherLadoSe;
 	}
@@ -97,6 +110,9 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);
+				
+				getPlanilha().setColunasLadoSeEscolhida(recuperarItensMarcados());
+				
 				form = new FormDefinirRegras(getArq(), getPlanilha(), getCnm());
 				form.setFrameAtual(form);
 				form.setFramePai(getFrameAtual());
@@ -105,6 +121,24 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		};
 	}
 	
+	/**
+	 * MŽtodo responsavel por recuperar os itens que foram marcados no Box
+	 * 
+	 * @return
+	 */
+	protected ArrayList<String> recuperarItensMarcados() {
+
+		  ArrayList<String> itens = new ArrayList<String>();
+		 
+		  for(int i = 0; i < list.getModel().getSize(); i++){             
+			  JCheckBox checkbox = (JCheckBox) list.getModel().getElementAt(i);               
+			  if(checkbox.isSelected())                 
+				  itens.add(checkbox.getText());
+		  }
+		  
+		return itens;
+	}
+
 	public ActionListener retornaEventoBotaoConcluir(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -112,4 +146,32 @@ public class FormEscolherLadoSe extends FormPrincipal {
 			}
 		};
 	}
+
+	
+	/**
+	 * Classe interna que permite expor os objetos recuperados na lista
+	 * 
+	 * @author felipe
+	 *
+	 */
+	private class CheckBoxCellRenderer implements ListCellRenderer {
+
+		 Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);  
+		 
+		 public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus){     
+			 JCheckBox checkbox = (JCheckBox) value;
+			 checkbox.setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());     
+			 checkbox.setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());     
+			 checkbox.setEnabled(list.isEnabled());     
+			 checkbox.setFont(list.getFont());     
+			 checkbox.setFocusPainted(false);
+			 checkbox.setBorderPainted(true);     
+			 checkbox.setBorder(isSelected ? UIManager.getBorder("List.focusCellHighlightBorder") : noFocusBorder);     
+			 
+			 return checkbox;
+		 }
+		
+	}
+
+	
 }

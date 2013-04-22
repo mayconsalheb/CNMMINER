@@ -20,6 +20,7 @@ public class PlanilhaExcel {
 	private XSSFWorkbook workbookXlsx;
 	private String planilhaEscolhida;
 	private String colunaLadoEntaoEscolhida;
+	private ArrayList<String> colunasLadoSeEscolhida;
 
 	
 	public ArrayList<String> getPlanilhas() {
@@ -70,6 +71,12 @@ public class PlanilhaExcel {
 		this.colunaLadoEntaoEscolhida = colunaLadoEntaoEscolhida;
 	}
 
+	public ArrayList<String> getColunasLadoSeEscolhida() {
+		return colunasLadoSeEscolhida;
+	}
 
+	public void setColunasLadoSeEscolhida(ArrayList<String> colunasLadoSeEscolhida) {
+		this.colunasLadoSeEscolhida = colunasLadoSeEscolhida;
+	}
 	
 }
