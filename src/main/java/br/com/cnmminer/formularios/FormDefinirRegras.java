@@ -154,7 +154,7 @@ public class FormDefinirRegras extends FormPrincipal {
 			if(valor <= 0 || valor > 100)
 				return false;
 			valor = Integer.parseInt(spinNumCasos.getValue().toString());
-			if(valor <= 0)
+			if(valor < getPlanilha().getColunasLadoSeEscolhida().size())
 				return false;
 		} catch (Exception e) {
 			

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
@@ -111,12 +112,19 @@ public class FormEscolherLadoSe extends FormPrincipal {
 			public void actionPerformed(ActionEvent event) {
 				setVisible(false);
 				
-				getPlanilha().setColunasLadoSeEscolhida(recuperarItensMarcados());
-				
-				form = new FormDefinirRegras(getArq(), getPlanilha(), getCnm());
-				form.setFrameAtual(form);
-				form.setFramePai(getFrameAtual());
-				form.setVisible(true);
+				ArrayList<String> itens = new ArrayList<String>();
+				itens = recuperarItensMarcados();
+				if(itens.size() <= 0){
+					setVisible(true);
+					new JOptionPane().showMessageDialog(null, "Escolha pelo menos uma coluna");
+				}else{
+					getPlanilha().setColunasLadoSeEscolhida(itens);
+					
+					form = new FormDefinirRegras(getArq(), getPlanilha(), getCnm());
+					form.setFrameAtual(form);
+					form.setFramePai(getFrameAtual());
+					form.setVisible(true);
+				}
 			}
 		};
 	}
