@@ -116,7 +116,7 @@ public class FormEscolherLadoSe extends FormPrincipal {
 				itens = recuperarItensMarcados();
 				if(itens.size() <= 0){
 					setVisible(true);
-					new JOptionPane().showMessageDialog(null, "Escolha pelo menos uma coluna");
+					new JOptionPane().showMessageDialog(null, "Escolha pelo menos uma opcao");
 				}else{
 					getPlanilha().setColunasLadoSeEscolhida(itens);
 					
