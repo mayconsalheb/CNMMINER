@@ -45,10 +45,10 @@ public class FormEscolherLadoSe extends FormPrincipal {
 		lblEscolhaDasCausas.setBounds(27, 23, 144, 14);
 		
 		JLabel lblMarqueTodosOs = DefaultComponentFactory.getInstance().createLabel("Marque todos os camos que poder\u00E3o ser usados pelo sistema");
-		lblMarqueTodosOs.setBounds(27, 70, 364, 14);
+		lblMarqueTodosOs.setBounds(27, 70, 399, 14);
 		
-		JLabel lblAFim = DefaultComponentFactory.getInstance().createLabel("a fim de descobrir rela\u00E7\u00E0o entre eles e o lado ENT\u00C0O informado");
-		lblAFim.setBounds(27, 90, 376, 14);
+		JLabel lblAFim = DefaultComponentFactory.getInstance().createLabel("a fim de descobrir rela\u00E7\u00E3o entre eles e o lado ENT\u00C0O informado");
+		lblAFim.setBounds(27, 90, 399, 14);
 		
 		JLabel lblAnteriormente = DefaultComponentFactory.getInstance().createLabel("anteriormente.");
 		lblAnteriormente.setBounds(27, 110, 117, 14);
