@@ -34,6 +34,8 @@ public class FormDiretorioSaida extends FormPrincipal {
 
 	private static final long serialVersionUID = 2033196326835124700L;
 
+	private static final String EXTENSAO_ARQ = ".xls";
+	
 	private Arquivo arquivoSaida;
 	private JFileChooser chooser;
 	private String caminho = "";
@@ -42,6 +44,7 @@ public class FormDiretorioSaida extends FormPrincipal {
 	private ManipularArquivo manipularArquivo;
 	private FormPrincipal form;
 	private PlanilhaExcel planilhaExcel;
+	
 
 	@Override
 	public JPanel painelEditavel() {
@@ -106,6 +109,8 @@ public class FormDiretorioSaida extends FormPrincipal {
 				int retorno = chooser.showSaveDialog(null); 
 				if (retorno==JFileChooser.APPROVE_OPTION){
 				      caminho = chooser.getSelectedFile().getAbsolutePath();
+				      
+				      caminho = caminho+EXTENSAO_ARQ;
 				      System.out.println(caminho);
 				      editorLocalArquivoExcel.setText(caminho);
 				}
@@ -124,6 +129,8 @@ public class FormDiretorioSaida extends FormPrincipal {
 					
 						new JOptionPane();
 						JOptionPane.showMessageDialog(null, "Arquivo criado com sucesso!");
+						
+						getArq().setDiretorioSaida(editorLocalArquivoExcel.getText()+EXTENSAO_ARQ);
 					}else{
 						
 						new JOptionPane();

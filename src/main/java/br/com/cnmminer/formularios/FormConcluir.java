@@ -1,7 +1,9 @@
 package br.com.cnmminer.formularios;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -12,11 +14,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
+import br.com.cnmminer.util.ManipularArquivo;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Classe responsï¿½vel por apresentar o formulï¿½rio de conclusï¿½o.
+ * Classe respons‡vel por apresentar o formul‡riorio de conclus‹o.
  * 
  * @author felipe
  *
@@ -29,9 +32,7 @@ public class FormConcluir extends FormPrincipal {
 
 	private static final long serialVersionUID = -8271451179126884611L;
 	
-	private FormPrincipal form;
-	private Arquivo arquivo;
-	private PlanilhaExcel planilhaExcel;
+	private ManipularArquivo manipularArquivo;
 
 	public JPanel painelEditavel() {
 
@@ -87,6 +88,18 @@ public class FormConcluir extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				
+				if(manipularArquivo == null){
+					manipularArquivo = new ManipularArquivo();
+				}
+				
+				try {
+					Desktop desktop = Desktop.getDesktop();  
+					desktop.open(new File(getArq().getDiretorioSaida()));  
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+					
+					
 			}
 		};
 	}
