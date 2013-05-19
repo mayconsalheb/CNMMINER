@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author felipe
  *
  */
-public class No {
+public class Neuronio {
 
 	private ArrayList<LadoSe> evidencias;
 	private Integer acumulador;
@@ -59,7 +59,7 @@ public class No {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		No other = (No) obj;
+		Neuronio other = (Neuronio) obj;
 		if (hipotese == null) {
 			if (other.hipotese != null)
 				return false;

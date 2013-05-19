@@ -8,19 +8,19 @@ import org.apache.poi.ss.formula.functions.Na;
 import org.junit.Test;
 
 import br.com.cnmminer.bean.LadoSe;
-import br.com.cnmminer.bean.No;
+import br.com.cnmminer.bean.Neuronio;
 
 public class TesteNo {
 
 	@Test
 	public void test() {
 		
-		No no1 = new No();
-		No no2 = new No();
-		No no3 = new No();
-		No no4 = new No();
-		No no5 = new No();
-		No no6 = new No();
+		Neuronio no1 = new Neuronio();
+		Neuronio no2 = new Neuronio();
+		Neuronio no3 = new Neuronio();
+		Neuronio no4 = new Neuronio();
+		Neuronio no5 = new Neuronio();
+		Neuronio no6 = new Neuronio();
 		
 		LadoSe lado1 = new LadoSe();
 		lado1.setEvidencia("S1");
@@ -80,7 +80,7 @@ public class TesteNo {
 		no6.setHipotese("d2");
 		//-----------------
 		
-		ArrayList<No> arrayNo = new ArrayList<No>();
+		ArrayList<Neuronio> arrayNo = new ArrayList<Neuronio>();
 		arrayNo.add(no1);
 		arrayNo.add(no2);
 		arrayNo.add(no3);
@@ -89,7 +89,7 @@ public class TesteNo {
 		
 		
 		System.out.println(arrayNo.contains(no6));
-		No aux;
+		Neuronio aux;
 		Integer acumulador = 1;
 		if(arrayNo.contains(no6)){
 
