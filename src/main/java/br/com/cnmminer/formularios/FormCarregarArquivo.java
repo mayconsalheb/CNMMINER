@@ -51,6 +51,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 		JLabel lblLocalizaoDoArquivo = DefaultComponentFactory.getInstance().createLabel("Localiza\u00E7\u00E3o do arquivo Microsoft Excel:");
 		
 		editorLocalArquivoExcel = new JEditorPane();
+		editorLocalArquivoExcel.setEditable(Boolean.FALSE);
 		
 		JButton botaoProcurarArquivo = new JButton("...");
 		
@@ -150,7 +151,6 @@ public class FormCarregarArquivo extends FormPrincipal {
 							}
 						}
 						
-						System.out.println(caminhoArquivo);
 						editorLocalArquivoExcel.setText(caminhoArquivo);
 					}else{
 						JOptionPane.showMessageDialog(form,

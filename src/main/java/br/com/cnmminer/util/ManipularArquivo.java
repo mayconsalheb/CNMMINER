@@ -5,6 +5,7 @@ package br.com.cnmminer.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -33,6 +34,7 @@ public class ManipularArquivo {
 	private Row linhaPlanilha;
 	private Cell celulaPlanilha;
 	private Sheet sheet;
+	private String EXTENSAO_ARQ = ".xls";
 	
 	
 	/**
@@ -122,13 +124,6 @@ public class ManipularArquivo {
 	public boolean abrirArquivo(Arquivo arquivo, PlanilhaExcel planilhaExcel){
 		
 		if(arquivo != null){
-			try {
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-//				JOptionPane: nao foi possivel abrir o arquivo
-				//Se necessario, criar um super Exception
-			}
 			if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLS)){
 			
 				try {
@@ -140,6 +135,8 @@ public class ManipularArquivo {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
+					new JOptionPane();
+					JOptionPane.showMessageDialog(null, "N‹o foi poss’vel abrir o arquivo");
 				}
 				
 			}else if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLSX)){
@@ -152,8 +149,9 @@ public class ManipularArquivo {
 					return true;
 					
 				}catch (Exception e) {
-					//TODO: Tratar exception
 					e.printStackTrace();
+					new JOptionPane();
+					JOptionPane.showMessageDialog(null, "N‹o foi poss’vel abrir o arquivo");
 				}
 			}
 			
@@ -210,6 +208,42 @@ public class ManipularArquivo {
 			}
 		}
 		return colunas;
+		
+	}
+
+	/**
+	 * MŽtodo respons‡vel por criar o arquivo de saida contendo os dados com a an‡lise do CNM
+	 * 
+	 * @param caminho
+	 */
+	public boolean criarArquivoSaida(String caminho) {
+
+		FileOutputStream fos = null;
+		try {
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			fos = new FileOutputStream(new File(caminho+EXTENSAO_ARQ));
+			
+			HSSFSheet sheet = workbook.createSheet("An‡lise");
+			
+			workbook.write(fos);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally{
+			try {
+				fos.flush();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			try {
+				fos.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return true;
 		
 	}
 	

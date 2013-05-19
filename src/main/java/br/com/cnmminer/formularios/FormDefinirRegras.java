@@ -120,7 +120,7 @@ public class FormDefinirRegras extends FormPrincipal {
 					getCnm().setSuporteMinimo(Integer.parseInt(spinnerSuporte.getValue().toString()));
 					
 					setVisible(false);
-					form = new FormConcluir(getArq(), getPlanilha(), getCnm());
+					form = new FormDiretorioSaida(getArq(), getPlanilha(), getCnm());
 					form.setFrameAtual(form);
 					form.setFramePai(getFrameAtual());
 					form.setVisible(true);
