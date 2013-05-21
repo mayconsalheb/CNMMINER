@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -32,7 +31,6 @@ public class ManipularArquivo {
 	private File file;
 	private FileInputStream fis;
 	private Row linhaPlanilha;
-	private Cell celulaPlanilha;
 	private Sheet sheet;
 	private String EXTENSAO_ARQ = ".xls";
 	
@@ -205,12 +203,13 @@ public class ManipularArquivo {
 			for(int i=0; i<linhaPlanilha.getLastCellNum();i++){
 				
 				colunas.add(linhaPlanilha.getCell(i).getStringCellValue());
+				
 			}
 		}
 		return colunas;
 		
 	}
-
+	
 	/**
 	 * MŽtodo respons‡vel por criar o arquivo de saida contendo os dados com a an‡lise do CNM
 	 * 
@@ -247,5 +246,75 @@ public class ManipularArquivo {
 		
 	}
 	
+	/**
+	 * MŽtodo respons‡vel por recuperar os indices das colunas escolhidas como Lado Se
+	 * 
+	 * @param sheet
+	 * @param planilha
+	 * @return
+	 */
+	public ArrayList<Integer> recuperarIndicesColunasLadoSe(HSSFSheet sheet, PlanilhaExcel planilha){
+	
+		Row linha = sheet.getRow(0); 
+		ArrayList<Integer> indiceColunaLadoSe = new ArrayList<Integer>();
+		
+		for (String planilhaEscolhida : planilha.getColunasLadoSeEscolhida()) {
+			
+			for(int i=0; i<linha.getLastCellNum();i++){
+				
+				if(linha.getCell(i).getStringCellValue().equals(planilhaEscolhida))
+					indiceColunaLadoSe.add(i);
+				
+			}
+		}
+	
+		return indiceColunaLadoSe;
+		
+	}
+	
+	/**
+	 * MŽtodo respons‡vel por recuperar o indice do Lado Entao escolhido
+	 * 
+	 * @param sheet
+	 * @param planilha
+	 * @return
+	 */
+	public Integer recuperarIndiceColunaLadoEntao(HSSFSheet sheet, PlanilhaExcel planilha){
+	
+		Row linha = sheet.getRow(0); 
+		Integer indiceColunaLadoSe = null;
+		
+		for(int i=0; i<linha.getLastCellNum();i++){
+			
+			if(linha.getCell(i).getStringCellValue().equals(planilha.getColunaLadoEntaoEscolhida()))
+				indiceColunaLadoSe = i;
+		}
+	
+		return indiceColunaLadoSe;
+		
+	}
+
+	/**
+	 * MŽtodo repsonsavel por recuperar o cabecalho de um Lado Se especifico
+	 * 
+	 * @param indice
+	 * @param plan 
+	 * @return
+	 */
+	public String recuperarCabecalhoLadoSe(Integer indice, HSSFSheet plan) {
+		
+		Row linha = plan.getRow(0);
+		String valor = "";
+		try {
+			valor = String.valueOf(linha.getCell(indice).getStringCellValue().toString());	
+		
+		} catch (Exception e) {
+			new JOptionPane();
+			JOptionPane.showMessageDialog(null, "Cabealho n‹o pode ser numŽrico ou nulo");
+			System.exit(1);
+		}
+		 
+		return valor;
+	}
 	
 }

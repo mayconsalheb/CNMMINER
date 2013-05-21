@@ -2,15 +2,10 @@ package br.com.cnmminer.formularios;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -21,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
+import br.com.cnmminer.util.Aprendizado;
 import br.com.cnmminer.util.ManipularArquivo;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -36,14 +32,11 @@ public class FormDiretorioSaida extends FormPrincipal {
 
 	private static final String EXTENSAO_ARQ = ".xls";
 	
-	private Arquivo arquivoSaida;
 	private JFileChooser chooser;
 	private String caminho = "";
 	private JEditorPane editorLocalArquivoExcel;
-	private JComboBox comboBox;
 	private ManipularArquivo manipularArquivo;
 	private FormPrincipal form;
-	private PlanilhaExcel planilhaExcel;
 	
 
 	@Override
@@ -136,6 +129,10 @@ public class FormDiretorioSaida extends FormPrincipal {
 						new JOptionPane();
 						JOptionPane.showMessageDialog(null, "N‹o foi poss’vel criar o arquivo no diret—rio selecionado!");
 					}
+					
+					//TODO: Teste
+					Aprendizado aprendizagem = new Aprendizado(getPlanilha(), getArq());
+					aprendizagem.gerarRedeNeural();
 					
 					setVisible(false);
 					form = new FormConcluir(getArq(), getPlanilha(), getCnm());

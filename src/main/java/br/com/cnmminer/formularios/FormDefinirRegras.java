@@ -148,13 +148,13 @@ public class FormDefinirRegras extends FormPrincipal {
 		
 		try {
 			valor = Integer.parseInt(spinOrdem.getValue().toString());
-			if(valor <= 0)
+			if(valor > getPlanilha().getColunasLadoSeEscolhida().size() || valor <= 0)
 				return false;
 			valor = Integer.parseInt(spinSuporte.getValue().toString());
 			if(valor <= 0 || valor > 100)
 				return false;
 			valor = Integer.parseInt(spinNumCasos.getValue().toString());
-			if(valor < getPlanilha().getColunasLadoSeEscolhida().size())
+			if(valor <= 0)
 				return false;
 		} catch (Exception e) {
 			

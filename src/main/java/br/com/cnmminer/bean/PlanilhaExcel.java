@@ -78,5 +78,5 @@ public class PlanilhaExcel {
 	public void setColunasLadoSeEscolhida(ArrayList<String> colunasLadoSeEscolhida) {
 		this.colunasLadoSeEscolhida = colunasLadoSeEscolhida;
 	}
-	
+
 }

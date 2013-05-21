@@ -25,9 +25,13 @@ public class TesteNo {
 		LadoSe lado1 = new LadoSe();
 		lado1.setEvidencia("S1");
 		LadoSe lado2 = new LadoSe();
-		lado1.setEvidencia("S2");
+		lado2.setEvidencia("S2");
 		LadoSe lado3 = new LadoSe();
-		lado1.setEvidencia("S3");
+		lado3.setEvidencia("S3");
+		LadoSe lado4 = new LadoSe();
+		lado4.setEvidencia("S3");
+		
+		
 		
 		ArrayList<LadoSe> array1 = new ArrayList<LadoSe>();
 		ArrayList<LadoSe> array2 = new ArrayList<LadoSe>();
@@ -53,8 +57,8 @@ public class TesteNo {
 		array4.add(lado3);
 		
 		//Array5
-		array5.add(lado3);
-		
+		array5.add(lado4);
+		array5.add(lado1);
 		//Array6
 		array6.add(lado3);
 		array6.add(lado1);
@@ -85,10 +89,10 @@ public class TesteNo {
 		arrayNo.add(no2);
 		arrayNo.add(no3);
 		arrayNo.add(no4);
-		arrayNo.add(no5);
+//		arrayNo.add(no5);
 		
 		
-		System.out.println(arrayNo.contains(no6));
+		System.out.println(arrayNo.contains(no5));
 		Neuronio aux;
 		Integer acumulador = 1;
 		if(arrayNo.contains(no6)){

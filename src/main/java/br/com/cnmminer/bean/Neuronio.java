@@ -10,7 +10,9 @@ public class Neuronio {
 
 	private ArrayList<LadoSe> evidencias;
 	private Integer acumulador;
-	private String hipotese;
+	private Object hipotese;
+	private Double suporte;
+	private Double confianca;
 
 	public Integer getAcumulador() {
 		return acumulador;
@@ -18,10 +20,10 @@ public class Neuronio {
 	public void setAcumulador(Integer acumulador) {
 		this.acumulador = acumulador;
 	}
-	public String getHipotese() {
+	public Object getHipotese() {
 		return hipotese;
 	}
-	public void setHipotese(String hipotese) {
+	public void setHipotese(Object hipotese) {
 		this.hipotese = hipotese;
 	}
 	/**
@@ -35,6 +37,31 @@ public class Neuronio {
 	 */
 	public void setEvidencias(ArrayList<LadoSe> evidencias) {
 		this.evidencias = evidencias;
+	}
+	
+	/**
+	 * @return the suporte
+	 */
+	public Double getSuporte() {
+		return suporte;
+	}
+	/**
+	 * @param suporte the suporte to set
+	 */
+	public void setSuporte(Double suporte) {
+		this.suporte = suporte;
+	}
+	/**
+	 * @return the confianca
+	 */
+	public Double getConfianca() {
+		return confianca;
+	}
+	/**
+	 * @param confianca the confianca to set
+	 */
+	public void setConfianca(Double confianca) {
+		this.confianca = confianca;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
