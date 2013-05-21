@@ -3,7 +3,6 @@
  */
 package br.com.cnmminer.util;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -13,11 +12,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.eventusermodel.examples.FromHowTo;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import br.com.cnmminer.bean.Arquivo;
@@ -98,7 +95,7 @@ public class Aprendizado{
 						LadoSe ladoSe = new LadoSe();
 						Object object = (Object) iterator.next();
 
-						ladoSe.setEvidencia(object);
+						ladoSe = recuperarLadoSe(object);
 						
 						evidencias.add(ladoSe);
 						
@@ -162,6 +159,20 @@ public class Aprendizado{
 		
 	}
 	
+	private LadoSe recuperarLadoSe(Object object) {
+		
+		LadoSe ladoSe = new LadoSe();
+
+		if(object != null){
+			String string[] = object.toString().split(";");
+			ladoSe.setEvidencia(string[0]);
+			ladoSe.setCabecalho(string[1]);
+		}
+		
+		
+		return ladoSe;
+	}
+
 	private Object recuperarObjetoTipo(Cell cell) {
 		
 		Object valor = null;
@@ -199,6 +210,21 @@ public class Aprendizado{
 		return false;
 	}
 
+	/**
+	 * Método responsavel por validar objeto.
+	 * 
+	 * @param valor
+	 * @return
+	 */
+	private boolean isObjectvalido(LadoSe valor) {
+
+		if(valor != null && valor.getEvidencia() != null && !valor.getEvidencia().toString().trim().isEmpty())
+			return true;
+		
+		return false;
+	}
+
+	
 	/**
 	 * Método responsavel por obter combinações das evidencias.
 	 * 

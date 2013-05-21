@@ -64,6 +64,13 @@ public class LadoSe {
 		return true;
 	}
 
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return  evidencia + ";" + cabecalho;
+	}
+
 	
 }
