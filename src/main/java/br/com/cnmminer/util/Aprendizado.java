@@ -126,23 +126,11 @@ public class Aprendizado{
 			XSSFSheet sheet = planilha.getWorkbookXlsx().getSheet(planilha.getPlanilhaEscolhida());
 			
 			//TODO: FAZER O MESMO DE CIMA
-			Row linha = sheet.getRow(0); 
-			for (String planilhaEscolhida : planilha.getColunasLadoSeEscolhida()) {
-				
-				for(int i=0; i<linha.getLastCellNum();i++){
-					
-					linha = sheet.getRow(i);
-					if(linha.getCell(i).getStringCellValue().equals(planilhaEscolhida))
-						indicesColunaLadoSe.add(i);
-					
-				}
-			}
 			
-			for (int i = 0; i < sheet.getLastRowNum(); i++) {
-				
-			}			
+			
 		}
 
+		//TODO: Escrevendo registros
 		for (Neuronio object : neuronios) {
 			System.out.println("--------------------------------");
 			for (LadoSe evidencia : object.getEvidencias()) {
@@ -159,6 +147,12 @@ public class Aprendizado{
 		
 	}
 	
+	/**
+	 * MŽtodo responsavel por separar cabecalho da evidencia
+	 * 
+	 * @param object
+	 * @return
+	 */
 	private LadoSe recuperarLadoSe(Object object) {
 		
 		LadoSe ladoSe = new LadoSe();

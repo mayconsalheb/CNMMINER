@@ -5,19 +5,26 @@ package br.com.cnmminer.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.LadoSe;
+import br.com.cnmminer.bean.Neuronio;
 import br.com.cnmminer.bean.PlanilhaExcel;
 
 /**
@@ -33,6 +40,7 @@ public class ManipularArquivo {
 	private Row linhaPlanilha;
 	private Sheet sheet;
 	private String EXTENSAO_ARQ = ".xls";
+	private HSSFWorkbook workbookOut;
 	
 	
 	/**
@@ -315,6 +323,136 @@ public class ManipularArquivo {
 		}
 		 
 		return valor;
+	}
+
+	/**
+	 * MŽtodo responsavel por escrever analise dos registros no arquivo
+	 * 
+	 * @param neuronios
+	 * @param arquivoSaida
+	 */
+	public void escreverRegistrosArquivo(List<Neuronio> neuronios, String arquivoSaida) {
+
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(new File(arquivoSaida));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		workbookOut = new HSSFWorkbook();
+		HSSFSheet planilha = workbookOut.createSheet("An‡lise");
+		HSSFRow linha; 
+		HSSFCell celula;
+		int contLinha = 0;
+		int contCelula = 0;
+		String primaria = "SE ";
+		String concatenacao = " E ";
+		String entao = "ENTÌO ";
+
+		try {
+			
+			linha = planilha.createRow(contLinha);
+			
+			criarCabecalho(linha, planilha);
+			contLinha++;
+			
+			for (Neuronio object : neuronios) {
+				
+				contCelula = 0;
+				int contAux = 0;
+				linha = planilha.createRow(contLinha);
+				celula = criarCelula(contCelula, linha);
+				
+				for (LadoSe evidencia : object.getEvidencias()) {
+					
+					if(contAux > 0)
+						celula = escreverCelula(celula, concatenacao + evidencia.getEvidencia().toString());
+					else
+						celula = escreverCelula(celula, primaria + evidencia.getEvidencia().toString());
+					
+					contAux++;
+					
+				}
+				
+				contCelula++;
+				celula = criarCelula(contCelula, linha);
+				celula = escreverCelula(celula, entao + object.getHipotese().toString());
+				
+				contCelula++;
+				celula = criarCelula(contCelula, linha);
+				celula = escreverCelula(celula, object.getAcumulador().toString());
+				
+				contLinha++;
+			}
+
+			workbookOut.write(fos);
+			
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				fos.flush();
+				fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * MŽtodo responsavel por criar cabecalho de arquivo de saida
+	 * 
+	 * @param linha
+	 * @param planilha
+	 * @param contLinha 
+	 */
+	private void criarCabecalho(HSSFRow linha, HSSFSheet planilha) {
+		
+		HSSFCell celula;
+		
+		celula = criarCelula(0, linha);
+		celula = escreverCelula(celula, "LADO SE");
+		celula = criarCelula(1, linha);
+		celula = escreverCelula(celula, "LADO ENTAO");
+		celula = criarCelula(2, linha);
+		celula = escreverCelula(celula, "Num. de Casos");
+		celula = criarCelula(3, linha);
+		celula = escreverCelula(celula, "CONFIAN‚A");
+		celula = criarCelula(4, linha);
+		celula = escreverCelula(celula, "SUPORTE");
+		
+		
+	}
+
+	/**
+	 * MŽtodo responsavel por inserir valor na celula
+	 * 
+	 * @param celula
+	 * @param valor
+	 * @return 
+	 */
+	private HSSFCell escreverCelula(HSSFCell celula, String valor) {
+		
+		celula.setCellValue(celula.getStringCellValue().toString()+valor);
+		
+		return celula;
+		
+	}
+
+	/**
+	 * MŽtodo responsavel por criar celula
+	 * 
+	 * @param contCelula
+	 * @param linha
+	 * @return 
+	 */
+	private HSSFCell criarCelula(int contCelula, HSSFRow linha) {
+		
+		 return linha.createCell(contCelula);
+		
 	}
 	
 }

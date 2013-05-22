@@ -2,6 +2,7 @@ package br.com.cnmminer.formularios;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
+import br.com.cnmminer.bean.Neuronio;
 import br.com.cnmminer.bean.PlanilhaExcel;
 import br.com.cnmminer.util.Aprendizado;
 import br.com.cnmminer.util.ManipularArquivo;
@@ -132,7 +134,9 @@ public class FormDiretorioSaida extends FormPrincipal {
 					
 					//TODO: Teste
 					Aprendizado aprendizagem = new Aprendizado(getPlanilha(), getArq());
-					aprendizagem.gerarRedeNeural();
+					List<Neuronio> neuronios = aprendizagem.gerarRedeNeural();
+					
+					manipularArquivo.escreverRegistrosArquivo(neuronios, getArq().getDiretorioSaida());
 					
 					setVisible(false);
 					form = new FormConcluir(getArq(), getPlanilha(), getCnm());
