@@ -46,9 +46,9 @@ public class FormDiretorioSaida extends FormPrincipal {
 
 		JPanel painelCarregarArquivo = new JPanel();
 
-		JLabel lblDadosDeOrigem = DefaultComponentFactory.getInstance().createLabel("Exportação de análise");
+		JLabel lblDadosDeOrigem = DefaultComponentFactory.getInstance().createLabel("ExportaÔøΩÔøΩo de anÔøΩlise");
 		
-		JLabel lblLocalizaoDoArquivo = DefaultComponentFactory.getInstance().createLabel("Informe o diretório e o nome do arquivo:");
+		JLabel lblLocalizaoDoArquivo = DefaultComponentFactory.getInstance().createLabel("Informe o diretÔøΩrio e o nome do arquivo:");
 		
 		editorLocalArquivoExcel = new JEditorPane();
 		editorLocalArquivoExcel.setEditable(Boolean.FALSE);
@@ -129,11 +129,11 @@ public class FormDiretorioSaida extends FormPrincipal {
 					}else{
 						
 						new JOptionPane();
-						JOptionPane.showMessageDialog(null, "Não foi possível criar o arquivo no diretório selecionado!");
+						JOptionPane.showMessageDialog(null, "N√£o foi poss√≠vel criar o arquivo no diret√≥rio selecionado!");
 					}
 					
 					//TODO: Teste
-					Aprendizado aprendizagem = new Aprendizado(getPlanilha(), getArq());
+					Aprendizado aprendizagem = new Aprendizado(getPlanilha(), getArq(),getCnm());
 					List<Neuronio> neuronios = aprendizagem.gerarRedeNeural();
 					
 					manipularArquivo.escreverRegistrosArquivo(neuronios, getArq().getDiretorioSaida());

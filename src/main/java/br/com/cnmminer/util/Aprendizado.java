@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import br.com.cnmminer.bean.Arquivo;
+import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.LadoSe;
 import br.com.cnmminer.bean.Neuronio;
 import br.com.cnmminer.bean.PlanilhaExcel;
@@ -30,6 +31,7 @@ public class Aprendizado{
 	
 	private PlanilhaExcel planilha = null;
 	private Arquivo arquivo = null;
+	private Cnm cnm = null;
 	private Row linha;
 	
 	private ArrayList<Integer> indicesColunaLadoSe = null;
@@ -38,14 +40,15 @@ public class Aprendizado{
 	private ArrayList<TreeSet<Object>> objetosCombinados;
 	private ArrayList<LadoSe> evidencias;
 	
-	public Aprendizado(PlanilhaExcel planilhaExcel, Arquivo arq) {
+	public Aprendizado(PlanilhaExcel planilhaExcel, Arquivo arq, Cnm cnm) {
 	  	
 		setPlanilha(planilhaExcel);
 	  	setArquivo(arq);
+	  	setCnm(cnm);
 	}
 	
 	/**
-	 * Método responsável por gerar a rede neural
+	 * M√©todo respons√°vel por gerar a rede neural
 	 * 
 	 * @return
 	 */
@@ -148,7 +151,7 @@ public class Aprendizado{
 	}
 	
 	/**
-	 * Método responsavel por separar cabecalho da evidencia
+	 * MÔøΩtodo responsavel por separar cabecalho da evidencia
 	 * 
 	 * @param object
 	 * @return
@@ -191,7 +194,7 @@ public class Aprendizado{
 	}
 
 	/**
-	 * Método responsavel por validar objeto.
+	 * MÔøΩtodo responsavel por validar objeto.
 	 * 
 	 * @param valor
 	 * @return
@@ -205,7 +208,7 @@ public class Aprendizado{
 	}
 
 	/**
-	 * Método responsavel por validar objeto.
+	 * MÔøΩtodo responsavel por validar objeto.
 	 * 
 	 * @param valor
 	 * @return
@@ -220,7 +223,7 @@ public class Aprendizado{
 
 	
 	/**
-	 * Método responsavel por obter combinações das evidencias.
+	 * MÔøΩtodo responsavel por obter combinaÔøΩÔøΩes das evidencias.
 	 * 
 	 * @param status
 	 * @return
@@ -250,6 +253,9 @@ public class Aprendizado{
 		for (int nivel = 1; nivel < status.length; nivel++) {
 			List<SortedSet<Comparable>> statusAntes = new ArrayList<SortedSet<Comparable>>(allCombList);
 			for (Set<Comparable> antes : statusAntes) {
+				if(antes.size() == getCnm().getOrderMaxima()){
+					break;
+				}
 				SortedSet<Comparable> novo = new TreeSet<Comparable>(antes);
 				novo.add(status[nivel].toString());
 				allCombList.add(novo);
@@ -288,6 +294,14 @@ public class Aprendizado{
 
 	public void setArquivo(Arquivo arquivo) {
 		this.arquivo = arquivo;
+	}
+
+	public Cnm getCnm() {
+		return cnm;
+	}
+
+	public void setCnm(Cnm cnm) {
+		this.cnm = cnm;
 	}
 
 }
