@@ -11,7 +11,7 @@ package br.com.cnmminer.bean;
  */
 public class Cnm {
 
-	private Integer numeroCasos;
+	private Integer confianca;
 	private Integer orderMaxima;
 	private Integer suporteMinimo;
 	private String indice;
@@ -24,19 +24,19 @@ public class Cnm {
 	 * @param suporteMinimo
 	 * @param indice
 	 */
-	public Cnm(Integer numeroCasos, Integer ordemMaxima, Integer suporteMinimo, String indice) {
+	public Cnm(Integer confianca, Integer ordemMaxima, Integer suporteMinimo, String indice) {
 		
-		setNumeroCasos(numeroCasos);
+		setConfianca(confianca);
 		setOrderMaxima(ordemMaxima);
 		setSuporteMinimo(suporteMinimo);
 		setIndice(indice);
 	}
 	
-	public Integer getNumeroCasos() {
-		return numeroCasos;
+	public Integer getConfianca() {
+		return confianca;
 	}
-	public void setNumeroCasos(Integer numeroCasos) {
-		this.numeroCasos = numeroCasos;
+	public void setConfianca(Integer confianca) {
+		this.confianca = confianca;
 	}
 	public Integer getOrderMaxima() {
 		return orderMaxima;

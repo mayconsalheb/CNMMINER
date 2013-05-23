@@ -49,7 +49,7 @@ public class FormDefinirRegras extends FormPrincipal {
 		
 		JLabel lblSuporteMnimo = DefaultComponentFactory.getInstance().createLabel("Suporte m\u00EDnimo(%):");
 		
-		JLabel lblNmeroDeCasos = DefaultComponentFactory.getInstance().createLabel("N\u00FAmero de casos:");
+		JLabel lblNmeroDeCasos = DefaultComponentFactory.getInstance().createLabel("Confian\u00e7a:");
 		
 		spinnerOrdem = new JSpinner();
 		
@@ -114,8 +114,7 @@ public class FormDefinirRegras extends FormPrincipal {
 
 				if(validarSpinners(spinnerOrdem, spinnerNumCasos, spinnerSuporte)){
 
-					//Settar cnm
-					getCnm().setNumeroCasos(Integer.parseInt(spinnerNumCasos.getValue().toString()));
+					getCnm().setConfianca(Integer.parseInt(spinnerNumCasos.getValue().toString()));
 					getCnm().setOrderMaxima(Integer.parseInt(spinnerOrdem.getValue().toString()));
 					getCnm().setSuporteMinimo(Integer.parseInt(spinnerSuporte.getValue().toString()));
 					
