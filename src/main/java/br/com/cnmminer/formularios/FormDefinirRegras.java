@@ -34,7 +34,7 @@ public class FormDefinirRegras extends FormPrincipal {
 	private FormPrincipal form;
 	private JSpinner spinnerOrdem;
 	private JSpinner spinnerSuporte;
-	private JSpinner spinnerNumCasos;
+	private JSpinner spinnerConfianca;
 	
 
 	public JPanel painelEditavel() {
@@ -55,7 +55,7 @@ public class FormDefinirRegras extends FormPrincipal {
 		
 		spinnerSuporte = new JSpinner();
 		
-		spinnerNumCasos = new JSpinner();
+		spinnerConfianca = new JSpinner();
 		
 		GroupLayout gl_painelEditavel = new GroupLayout(painelDefinirRegras);
 		gl_painelEditavel.setHorizontalGroup(
@@ -77,7 +77,7 @@ public class FormDefinirRegras extends FormPrincipal {
 							.addGroup(gl_painelEditavel.createParallelGroup(Alignment.LEADING)
 								.addComponent(spinnerOrdem, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 								.addComponent(spinnerSuporte, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-								.addComponent(spinnerNumCasos, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(spinnerConfianca, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		gl_painelEditavel.setVerticalGroup(
@@ -98,7 +98,7 @@ public class FormDefinirRegras extends FormPrincipal {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_painelEditavel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblNmeroDeCasos)
-						.addComponent(spinnerNumCasos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinnerConfianca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(120, Short.MAX_VALUE))
 		);
 		painelDefinirRegras.setLayout(gl_painelEditavel);
@@ -112,9 +112,9 @@ public class FormDefinirRegras extends FormPrincipal {
 
 			public void actionPerformed(ActionEvent event) {
 
-				if(validarSpinners(spinnerOrdem, spinnerNumCasos, spinnerSuporte)){
+				if(validarSpinners(spinnerOrdem, spinnerConfianca, spinnerSuporte)){
 
-					getCnm().setConfianca(Integer.parseInt(spinnerNumCasos.getValue().toString()));
+					getCnm().setConfianca(Integer.parseInt(spinnerConfianca.getValue().toString()));
 					getCnm().setOrderMaxima(Integer.parseInt(spinnerOrdem.getValue().toString()));
 					getCnm().setSuporteMinimo(Integer.parseInt(spinnerSuporte.getValue().toString()));
 					
