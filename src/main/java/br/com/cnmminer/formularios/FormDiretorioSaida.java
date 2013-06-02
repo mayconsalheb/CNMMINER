@@ -46,9 +46,9 @@ public class FormDiretorioSaida extends FormPrincipal {
 
 		JPanel painelCarregarArquivo = new JPanel();
 
-		JLabel lblDadosDeOrigem = DefaultComponentFactory.getInstance().createLabel("Exporta��o de an�lise");
+		JLabel lblDadosDeOrigem = DefaultComponentFactory.getInstance().createLabel("Exporta\u00e7\u00e3o de an\u00e1lise");
 		
-		JLabel lblLocalizaoDoArquivo = DefaultComponentFactory.getInstance().createLabel("Informe o diret�rio e o nome do arquivo:");
+		JLabel lblLocalizaoDoArquivo = DefaultComponentFactory.getInstance().createLabel("Informe o diret\u00f3rio e o nome do arquivo:");
 		
 		editorLocalArquivoExcel = new JEditorPane();
 		editorLocalArquivoExcel.setEditable(Boolean.FALSE);
@@ -125,14 +125,13 @@ public class FormDiretorioSaida extends FormPrincipal {
 						new JOptionPane();
 						JOptionPane.showMessageDialog(null, "Arquivo criado com sucesso!");
 						
-						getArq().setDiretorioSaida(editorLocalArquivoExcel.getText()+EXTENSAO_ARQ);
+						getArq().setDiretorioSaida(editorLocalArquivoExcel.getText());
 					}else{
 						
 						new JOptionPane();
-						JOptionPane.showMessageDialog(null, "Não foi possível criar o arquivo no diretório selecionado!");
+						JOptionPane.showMessageDialog(null, "N\u00e3o foi poss\u00edvel criar o arquivo no diret\u00f3rio selecionado!");
 					}
 					
-					//TODO: Teste
 					Aprendizado aprendizagem = new Aprendizado(getPlanilha(), getArq(),getCnm());
 					List<Neuronio> neuronios = aprendizagem.gerarRedeNeural();
 					

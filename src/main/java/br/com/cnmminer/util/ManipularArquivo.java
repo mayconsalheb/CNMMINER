@@ -20,6 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.cnmminer.bean.Arquivo;
@@ -281,6 +282,32 @@ public class ManipularArquivo {
 	}
 	
 	/**
+	 * MŽtodo respons‡vel por recuperar os indices das colunas escolhidas como Lado Se
+	 * 
+	 * @param sheet
+	 * @param planilha
+	 * @return
+	 */
+	public ArrayList<Integer> recuperarIndicesColunasLadoSe(XSSFSheet sheet, PlanilhaExcel planilha){
+	
+		Row linha = sheet.getRow(0); 
+		ArrayList<Integer> indiceColunaLadoSe = new ArrayList<Integer>();
+		
+		for (String planilhaEscolhida : planilha.getColunasLadoSeEscolhida()) {
+			
+			for(int i=0; i<linha.getLastCellNum();i++){
+				
+				if(linha.getCell(i).getStringCellValue().equals(planilhaEscolhida))
+					indiceColunaLadoSe.add(i);
+				
+			}
+		}
+	
+		return indiceColunaLadoSe;
+		
+	}
+	
+	/**
 	 * MŽtodo respons‡vel por recuperar o indice do Lado Entao escolhido
 	 * 
 	 * @param sheet
@@ -303,7 +330,29 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * MŽtodo repsonsavel por recuperar o cabecalho de um Lado Se especifico
+	 * MŽtodo respons‡vel por recuperar o indice do Lado Entao escolhido
+	 * 
+	 * @param sheet
+	 * @param planilha
+	 * @return
+	 */
+	public Integer recuperarIndiceColunaLadoEntao(XSSFSheet sheet, PlanilhaExcel planilha){
+	
+		Row linha = sheet.getRow(0); 
+		Integer indiceColunaLadoSe = null;
+		
+		for(int i=0; i<linha.getLastCellNum();i++){
+			
+			if(linha.getCell(i).getStringCellValue().equals(planilha.getColunaLadoEntaoEscolhida()))
+				indiceColunaLadoSe = i;
+		}
+	
+		return indiceColunaLadoSe;
+		
+	}
+	
+	/**
+	 * Metodo repsonsavel por recuperar o cabecalho de um Lado Se especifico
 	 * 
 	 * @param indice
 	 * @param plan 
@@ -325,6 +374,29 @@ public class ManipularArquivo {
 		return valor;
 	}
 
+	/**
+	 * Metodo repsonsavel por recuperar o cabecalho de um Lado Se especifico
+	 * 
+	 * @param indice
+	 * @param plan 
+	 * @return
+	 */
+	public String recuperarCabecalhoLadoSe(Integer indice, XSSFSheet plan) {
+		
+		Row linha = plan.getRow(0);
+		String valor = "";
+		try {
+			valor = String.valueOf(linha.getCell(indice).getStringCellValue().toString());	
+		
+		} catch (Exception e) {
+			new JOptionPane();
+			JOptionPane.showMessageDialog(null, "Cabealho n‹o pode ser numŽrico ou nulo");
+			System.exit(1);
+		}
+		 
+		return valor;
+	}
+	
 	/**
 	 * MŽtodo responsavel por escrever analise dos registros no arquivo
 	 * 
@@ -377,11 +449,11 @@ public class ManipularArquivo {
 				
 				contCelula++;
 				celula = criarCelula(contCelula, linha);
-				celula = escreverCelula(celula, entao + object.getHipotese().toString());
+				celula = escreverCelula(celula, entao + (object.getHipotese() == null ? "" : object.getHipotese().toString()));
 				
 				contCelula++;
 				celula = criarCelula(contCelula, linha);
-				celula = escreverCelula(celula, object.getAcumulador().toString());
+				celula = escreverCelula(celula, object.getAcumulador() == null ? "" : object.getAcumulador().toString());
 				
 				contLinha++;
 			}

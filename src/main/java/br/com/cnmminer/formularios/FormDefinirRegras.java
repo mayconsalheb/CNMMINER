@@ -124,8 +124,7 @@ public class FormDefinirRegras extends FormPrincipal {
 					form.setFramePai(getFrameAtual());
 					form.setVisible(true);
 				}else{
-					JOptionPane.showMessageDialog(form, "Apenas valores inteiros e acima de 0 s‹o permitidos!", 
-												  "AVISO",JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 				
 				
@@ -147,16 +146,26 @@ public class FormDefinirRegras extends FormPrincipal {
 		
 		try {
 			valor = Integer.parseInt(spinOrdem.getValue().toString());
-			if(valor > getPlanilha().getColunasLadoSeEscolhida().size() || valor <= 0)
+			if(valor > getPlanilha().getColunasLadoSeEscolhida().size() || valor <= 0){
+				JOptionPane.showMessageDialog(form, "Ordem invalida! Erro: Valor menor que 0 ou maior que quantidade de causas", 
+						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
+			}
 			valor = Integer.parseInt(spinSuporte.getValue().toString());
-			if(valor <= 0 || valor > 100)
+			if(valor <= 0 || valor > 100){
+				JOptionPane.showMessageDialog(form, "Suporte invalido! Erro: Valor menor ou igual a 0 ou maior que 100", 
+						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
+			}
 			valor = Integer.parseInt(spinNumCasos.getValue().toString());
-			if(valor <= 0)
+			if(valor <= 0){
+				JOptionPane.showMessageDialog(form, "Num. Casos invalido! Erro: Valor menor ou igual a 0", 
+						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
+			}
 		} catch (Exception e) {
-			
+			JOptionPane.showMessageDialog(form, "Excecao: "+e.getMessage(), 
+					  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 			

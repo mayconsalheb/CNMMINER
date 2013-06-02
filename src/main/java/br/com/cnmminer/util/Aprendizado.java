@@ -48,7 +48,7 @@ public class Aprendizado{
 	}
 	
 	/**
-	 * Método responsável por gerar a rede neural
+	 * Metodo responsavel por gerar a rede neural
 	 * 
 	 * @return
 	 */
@@ -86,41 +86,7 @@ public class Aprendizado{
 							
 				}
 				
-				objetosCombinados = obterCombinacoes(objCombinatorios.toArray());
-				
-				for (TreeSet<Object> objetoComb : objetosCombinados) {
-					
-					Neuronio neuronio = new Neuronio();
-					evidencias = new ArrayList<LadoSe>();
-					
-					for (Iterator iterator = objetoComb.iterator(); iterator.hasNext();) {
-						
-						LadoSe ladoSe = new LadoSe();
-						Object object = (Object) iterator.next();
-
-						ladoSe = recuperarLadoSe(object);
-						
-						evidencias.add(ladoSe);
-						
-					}
-					
-					neuronio.setEvidencias(evidencias);
-					Object valor =  recuperarObjetoTipo(linha.getCell(indiceColunaLadoEntao));
-					if(isObjectvalido(valor))
-						neuronio.setHipotese(valor);
-					
-					if(!neuronios.contains(neuronio)){
-
-						neuronio.setAcumulador(1);
-						neuronios.add(neuronio);
-					}else if(neuronios.contains(neuronio)){
-						Neuronio neuronioaux = new Neuronio();
-						neuronioaux = neuronios.get(neuronios.indexOf(neuronio));
-						neuronioaux.setAcumulador(neuronioaux.getAcumulador()+1);
-					}
-						
-					
-				}
+				montarRede(neuronios, objCombinatorios);
 				
 			}
 			
@@ -128,9 +94,31 @@ public class Aprendizado{
 			
 			XSSFSheet sheet = planilha.getWorkbookXlsx().getSheet(planilha.getPlanilhaEscolhida());
 			
-			//TODO: FAZER O MESMO DE CIMA
+			indicesColunaLadoSe = manipularArquivo.recuperarIndicesColunasLadoSe(sheet, planilha);
+			indiceColunaLadoEntao = manipularArquivo.recuperarIndiceColunaLadoEntao(sheet, planilha);
 			
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+				
+				objCombinatorios = new ArrayList<Object>();
+				linha = sheet.getRow(i);
 			
+				for (Integer indice : indicesColunaLadoSe) {
+					
+					LadoSe lado = new LadoSe();
+					lado.setEvidencia(recuperarObjetoTipo(linha.getCell(indice)));
+					lado.setCabecalho(manipularArquivo.recuperarCabecalhoLadoSe(indice, sheet));
+					
+					if(isObjectvalido(lado)){
+						objCombinatorios.add(lado); 
+						
+					}
+							
+				}
+				
+				montarRede(neuronios, objCombinatorios);
+				
+			}
+						
 		}
 
 		//TODO: Escrevendo registros
@@ -151,7 +139,52 @@ public class Aprendizado{
 	}
 	
 	/**
-	 * M�todo responsavel por separar cabecalho da evidencia
+	 * Metodo responsavel por montar a rede
+	 * 
+	 * @param neuronios
+	 * @param objCombinatorios
+	 */
+	private void montarRede(List<Neuronio> neuronios, ArrayList<Object> objCombinatorios) {
+		
+		objetosCombinados = obterCombinacoes(objCombinatorios.toArray());
+		
+		for (TreeSet<Object> objetoComb : objetosCombinados) {
+			
+			Neuronio neuronio = new Neuronio();
+			evidencias = new ArrayList<LadoSe>();
+			
+			for (Iterator iterator = objetoComb.iterator(); iterator.hasNext();) {
+				
+				LadoSe ladoSe = new LadoSe();
+				Object object = (Object) iterator.next();
+	
+				ladoSe = recuperarLadoSe(object);
+				
+				evidencias.add(ladoSe);
+				
+			}
+			
+			neuronio.setEvidencias(evidencias);
+			Object valor =  recuperarObjetoTipo(linha.getCell(indiceColunaLadoEntao));
+			if(isObjectvalido(valor))
+				neuronio.setHipotese(valor);
+			
+			if(!neuronios.contains(neuronio)){
+	
+				neuronio.setAcumulador(1);
+				neuronios.add(neuronio);
+			}else if(neuronios.contains(neuronio)){
+				Neuronio neuronioaux = new Neuronio();
+				neuronioaux = neuronios.get(neuronios.indexOf(neuronio));
+				neuronioaux.setAcumulador(neuronioaux.getAcumulador()+1);
+			}
+			
+		}
+
+	}
+
+	/**
+	 * Metodo responsavel por separar cabecalho da evidencia
 	 * 
 	 * @param object
 	 * @return
@@ -170,6 +203,11 @@ public class Aprendizado{
 		return ladoSe;
 	}
 
+	/**
+	 * Metodo responsavel por recuperar o tipo do objeto na celula
+	 * @param cell
+	 * @return
+	 */
 	private Object recuperarObjetoTipo(Cell cell) {
 		
 		Object valor = null;
@@ -194,7 +232,7 @@ public class Aprendizado{
 	}
 
 	/**
-	 * M�todo responsavel por validar objeto.
+	 * Metodo responsavel por validar objeto.
 	 * 
 	 * @param valor
 	 * @return
