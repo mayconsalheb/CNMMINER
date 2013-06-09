@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,8 +27,8 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class FormCarregarArquivo extends FormPrincipal {
 
 
-	public FormCarregarArquivo(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm) {
-		super(arquivo, planilha, cnm);
+	public FormCarregarArquivo(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm, JFrame frame) {
+		super(arquivo, planilha, cnm,frame);
 	}
 
 	private static final long serialVersionUID = 2033196326835124700L;
@@ -42,7 +43,7 @@ public class FormCarregarArquivo extends FormPrincipal {
 	private PlanilhaExcel planilhaExcel;
 
 	@Override
-	public JPanel painelEditavel() {
+	public JPanel obterPainelEditavel() {
 
 		JPanel painelCarregarArquivo = new JPanel();
 
@@ -153,15 +154,15 @@ public class FormCarregarArquivo extends FormPrincipal {
 						
 						editorLocalArquivoExcel.setText(caminhoArquivo);
 					}else{
-						JOptionPane.showMessageDialog(form,
-							    "N‹o foi poss’vel instanciar o arquivo!");
+						JOptionPane.showMessageDialog(getFrame(),
+							    "Nï¿½o foi possï¿½vel instanciar o arquivo!");
 //						TODO: nao foi possivelinstanciar o arquivo.
 						
 					}
 					
 				}else{
-					JOptionPane.showMessageDialog(form,
-						    "N‹o foi poss’vel abrir o arquivo selecionado!");
+					JOptionPane.showMessageDialog(getFrame(),
+						    "Nï¿½o foi possï¿½vel abrir o arquivo selecionado!");
 					//TODO: JOPTIOn Pane > nao foi possivel abrir o arquivo informado.
 					System.out.println("Nao abriu");
 				}
@@ -188,15 +189,14 @@ public class FormCarregarArquivo extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if(arquivo == null || planilhaExcel == null){
-					JOptionPane.showMessageDialog(form, "Para prosseguir deve escolher um arquivo!",
+					JOptionPane.showMessageDialog(getFrame(), "Para prosseguir deve escolher um arquivo!",
 							"AVISO", JOptionPane.WARNING_MESSAGE);
 				}else{
-					setVisible(false);
 					planilhaExcel.setPlanilhaEscolhida(comboBox.getSelectedItem().toString());
-					form = new FormEscolherIndice(arquivo, planilhaExcel, getCnm());
-					form.setFrameAtual(form);
-					form.setFramePai(getFrameAtual());
-					form.setVisible(true);
+					form = new FormEscolherIndice(arquivo, planilhaExcel, getCnm(),getFrame());
+					form.setFormAtual(form);
+					form.setFormPai(getFormAtual());
+					form.obterConfiguracoesTela();
 				}
 			}
 		};

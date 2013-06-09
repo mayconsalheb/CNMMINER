@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,11 +27,9 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class FormDiretorioSaida extends FormPrincipal {
 
 
-	public FormDiretorioSaida(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm) {
-		super(arquivo, planilha, cnm);
+	public FormDiretorioSaida(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm, JFrame frame) {
+		super(arquivo, planilha, cnm, frame);
 	}
-
-	private static final long serialVersionUID = 2033196326835124700L;
 
 	private static final String EXTENSAO_ARQ = ".xls";
 	
@@ -42,7 +41,7 @@ public class FormDiretorioSaida extends FormPrincipal {
 	
 
 	@Override
-	public JPanel painelEditavel() {
+	public JPanel obterPainelEditavel() {
 
 		JPanel painelCarregarArquivo = new JPanel();
 
@@ -137,11 +136,10 @@ public class FormDiretorioSaida extends FormPrincipal {
 					
 					manipularArquivo.escreverRegistrosArquivo(neuronios, getArq().getDiretorioSaida());
 					
-					setVisible(false);
-					form = new FormConcluir(getArq(), getPlanilha(), getCnm());
-					form.setFrameAtual(form);
-					form.setFramePai(getFrameAtual());
-					form.setVisible(true);
+					form = new FormConcluir(getArq(), getPlanilha(), getCnm(),getFrame());
+					form.setFormAtual(form);
+					form.setFormPai(getFormAtual());
+					form.obterConfiguracoesTela();
 				}
 			}
 		};

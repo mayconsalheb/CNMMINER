@@ -7,6 +7,7 @@ import java.io.File;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -19,22 +20,20 @@ import br.com.cnmminer.util.ManipularArquivo;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Classe respons‡vel por apresentar o formul‡riorio de conclus‹o.
+ * Classe responsï¿½vel por apresentar o formulï¿½riorio de conclusï¿½o.
  * 
  * @author felipe
  *
  */
 public class FormConcluir extends FormPrincipal {
 
-	public FormConcluir(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
-		super(arquivo, planilhaExcel, cnm);
+	public FormConcluir(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm, JFrame frame) {
+		super(arquivo, planilhaExcel, cnm, frame);
 	}
 
-	private static final long serialVersionUID = -8271451179126884611L;
-	
 	private ManipularArquivo manipularArquivo;
 
-	public JPanel painelEditavel() {
+	public JPanel obterPainelEditavel() {
 
 		JPanel painelConcluir = new JPanel();
 		

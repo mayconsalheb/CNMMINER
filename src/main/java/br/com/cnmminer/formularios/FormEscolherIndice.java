@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,9 +26,6 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  *
  */
 public class FormEscolherIndice extends FormPrincipal {
-
-
-	private static final long serialVersionUID = 2869664018981879475L;
 	
 	private FormPrincipal form;
 	private Cnm cnm;
@@ -35,11 +33,11 @@ public class FormEscolherIndice extends FormPrincipal {
 	private ArrayList<String> colunas;
 	private JComboBox comboBox;
 	
-	public FormEscolherIndice(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
-		super(arquivo, planilhaExcel, cnm);
+	public FormEscolherIndice(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm, JFrame frame) {
+		super(arquivo, planilhaExcel, cnm, frame);
 	}
 
-	public JPanel painelEditavel(){
+	public JPanel obterPainelEditavel(){
 
 		JPanel painelEscolherIndice = new JPanel();
 		
@@ -60,8 +58,8 @@ public class FormEscolherIndice extends FormPrincipal {
 				comboBox.addItem(planilhaCombo);
 			}
 		}else{
-			JOptionPane.showMessageDialog(form,
-				    "N‹o existe coluna para a planilha selecionada!",
+			JOptionPane.showMessageDialog(getFrame(),
+				    "Nï¿½o existe coluna para a planilha selecionada!",
 				    "AVISO", JOptionPane.WARNING_MESSAGE);
 			//TODO: voltar para o formulario anterior
 			retornaEventoBotaoVoltar();
@@ -98,8 +96,6 @@ public class FormEscolherIndice extends FormPrincipal {
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
-				
 				colunas.remove(comboBox.getSelectedItem().toString());
 				getPlanilha().setColunas(colunas);
 				
@@ -108,10 +104,10 @@ public class FormEscolherIndice extends FormPrincipal {
 						  null, 
 						  comboBox.getSelectedItem().toString());
 				
-				form = new FormEscolherLadoEntao(getArq(), getPlanilha(), cnm);
-				form.setFrameAtual(form);
-				form.setFramePai(getFrameAtual());
-				form.setVisible(true);
+				form = new FormEscolherLadoEntao(getArq(), getPlanilha(), cnm, getFrame());
+				form.setFormAtual(form);
+				form.setFormPai(getFormAtual());
+				form.obterConfiguracoesTela();
 			}
 		};
 	}

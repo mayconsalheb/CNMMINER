@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,19 +26,17 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  */
 public class FormDefinirRegras extends FormPrincipal {
 
-	public FormDefinirRegras(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm nmc) {
-		super(arquivo, planilhaExcel, nmc);
+	public FormDefinirRegras(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm nmc, JFrame frame) {
+		super(arquivo, planilhaExcel, nmc, frame);
 	}
 
-	private static final long serialVersionUID = 464135877308267958L;
-	
 	private FormPrincipal form;
 	private JSpinner spinnerOrdem;
 	private JSpinner spinnerSuporte;
 	private JSpinner spinnerConfianca;
 	
 
-	public JPanel painelEditavel() {
+	public JPanel obterPainelEditavel() {
 
 		JPanel painelDefinirRegras = new JPanel();
 		
@@ -118,11 +117,10 @@ public class FormDefinirRegras extends FormPrincipal {
 					getCnm().setOrderMaxima(Integer.parseInt(spinnerOrdem.getValue().toString()));
 					getCnm().setSuporteMinimo(Integer.parseInt(spinnerSuporte.getValue().toString()));
 					
-					setVisible(false);
-					form = new FormDiretorioSaida(getArq(), getPlanilha(), getCnm());
-					form.setFrameAtual(form);
-					form.setFramePai(getFrameAtual());
-					form.setVisible(true);
+					form = new FormDiretorioSaida(getArq(), getPlanilha(), getCnm(), getFrame());
+					form.setFormAtual(form);
+					form.setFormPai(getFormAtual());
+					form.obterConfiguracoesTela();
 				}else{
 					
 				}
@@ -133,7 +131,7 @@ public class FormDefinirRegras extends FormPrincipal {
 	}
 	
 	/**
-	 * MŽtodo responsavel por validar os spinners de suporte
+	 * Mï¿½todo responsavel por validar os spinners de suporte
 	 * 
 	 * @param spinOrdem
 	 * @param spinNumCasos
@@ -147,24 +145,24 @@ public class FormDefinirRegras extends FormPrincipal {
 		try {
 			valor = Integer.parseInt(spinOrdem.getValue().toString());
 			if(valor > getPlanilha().getColunasLadoSeEscolhida().size() || valor <= 0){
-				JOptionPane.showMessageDialog(form, "Ordem invalida! Erro: Valor menor que 0 ou maior que quantidade de causas", 
+				JOptionPane.showMessageDialog(getFrame(), "Ordem invalida! Erro: Valor menor que 0 ou maior que quantidade de causas", 
 						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
 			}
 			valor = Integer.parseInt(spinSuporte.getValue().toString());
 			if(valor <= 0 || valor > 100){
-				JOptionPane.showMessageDialog(form, "Suporte invalido! Erro: Valor menor ou igual a 0 ou maior que 100", 
+				JOptionPane.showMessageDialog(getFrame(), "Suporte invalido! Erro: Valor menor ou igual a 0 ou maior que 100", 
 						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
 			}
 			valor = Integer.parseInt(spinNumCasos.getValue().toString());
 			if(valor <= 0){
-				JOptionPane.showMessageDialog(form, "Num. Casos invalido! Erro: Valor menor ou igual a 0", 
+				JOptionPane.showMessageDialog(getFrame(), "Num. Casos invalido! Erro: Valor menor ou igual a 0", 
 						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(form, "Excecao: "+e.getMessage(), 
+			JOptionPane.showMessageDialog(getFrame(), "Excecao: "+e.getMessage(), 
 					  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}

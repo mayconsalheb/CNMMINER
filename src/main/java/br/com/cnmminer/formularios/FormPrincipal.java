@@ -16,39 +16,39 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import br.com.cnmminer.bean.Arquivo;
 import br.com.cnmminer.bean.Cnm;
 import br.com.cnmminer.bean.PlanilhaExcel;
-import javax.swing.JCheckBox;
 
-public abstract  class FormPrincipal extends JFrame {
+public abstract  class FormPrincipal{
 
-	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
 	private BufferedImage imagem;
 	private Arquivo arq;
 	private PlanilhaExcel planilha;
 	private Cnm cnm;
-	private JFrame framePai;
-	private JFrame FrameAtual;
+	private JFrame frame;
+	private FormPrincipal formPai;
+	private FormPrincipal formAtual;
+	private JPanel painelEditavel = new JPanel();
 
-	/**
-	 * Create the frame.
-	 */
-	public FormPrincipal(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm nmc) {
+	public FormPrincipal(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm nmc, JFrame frame) {
+		setArq(arquivo);
+		setPlanilha(planilhaExcel);
+		setCnm(nmc);
+		setFrame(frame);
+	}
 	
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 659, 462);
+	public void obterConfiguracoesTela(){
+		getFrame().setResizable(false);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setBounds(100, 100, 659, 462);
 		contentPane = new JPanel();
-		setContentPane(contentPane);
+		getFrame().setContentPane(contentPane);
 		
 		JPanel painelRodape = new JPanel();
 		painelRodape.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -98,14 +98,7 @@ public abstract  class FormPrincipal extends JFrame {
 		
 		JPanel painelImagem = new JPanel();
 		
-		if(arq == null)
-			setArq(arquivo);
-		if(planilha == null)
-			setPlanilha(planilhaExcel);
-		if(cnm == null)
-			setCnm(nmc);
-		
-		JPanel painelEditavel = painelEditavel();
+		painelEditavel = obterPainelEditavel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -142,30 +135,7 @@ public abstract  class FormPrincipal extends JFrame {
 		
 		painelImagem.add(labelImagem);
 		contentPane.setLayout(gl_contentPane);
-	}
-	
-	public JFrame getFramePai() {
-		return framePai;
-	}
-
-	public void setFramePai(JFrame framePai) {
-		this.framePai = framePai;
-	}
-	
-	public JFrame getFrameAtual() {
-		return FrameAtual;
-	}
-
-	public void setFrameAtual(JFrame frameAtual) {
-		FrameAtual = frameAtual;
-	}
-	
-	public Arquivo getArq() {
-		return arq;
-	}
-
-	public void setArq(Arquivo arq) {
-		this.arq = arq;
+		
 	}
 	
 	//MÔøΩtodo deve ser transformando para abstract
@@ -190,9 +160,8 @@ public abstract  class FormPrincipal extends JFrame {
 	public ActionListener retornaEventoBotaoVoltar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				if(getFramePai() != null){
-					setVisible(false);
-					getFramePai().setVisible(true);
+				if(getFormPai() != null){
+					getFormPai().obterConfiguracoesTela();
 				}
 			}
 		};
@@ -207,11 +176,7 @@ public abstract  class FormPrincipal extends JFrame {
 		};
 	}
 		
-	//MÔøΩtodo deve ser transformando para abstract
-	public abstract JPanel painelEditavel();
-//	public JPanel painelEditavel(){
-//		return new JPanel();
-//	}
+	public abstract JPanel obterPainelEditavel();
 
 	public PlanilhaExcel getPlanilha() {
 		return planilha;
@@ -227,5 +192,37 @@ public abstract  class FormPrincipal extends JFrame {
 
 	public void setCnm(Cnm nmc) {
 		this.cnm = nmc;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	public FormPrincipal getFormPai() {
+		return formPai;
+	}
+
+	public void setFormPai(FormPrincipal formPai) {
+		this.formPai = formPai;
+	}
+
+	public FormPrincipal getFormAtual() {
+		return formAtual;
+	}
+
+	public void setFormAtual(FormPrincipal formAtual) {
+		this.formAtual = formAtual;
+	}
+	
+	public Arquivo getArq() {
+		return arq;
+	}
+
+	public void setArq(Arquivo arq) {
+		this.arq = arq;
 	}
 }

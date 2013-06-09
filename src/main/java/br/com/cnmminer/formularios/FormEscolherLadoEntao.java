@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,19 +31,17 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
  */
 public class FormEscolherLadoEntao extends FormPrincipal {
 
-	private static final long serialVersionUID = 5153797266678607223L;
-	
 	private FormPrincipal form;
 	private ManipularArquivo manipularArquivo;
 	private JComboBox comboBoxColunaEntao;
 
-	public FormEscolherLadoEntao(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm) {
-		super(arquivo, planilha, cnm);
+	public FormEscolherLadoEntao(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm, JFrame frame) {
+		super(arquivo, planilha, cnm, frame);
 	}
 
 
 
-	public JPanel painelEditavel() {
+	public JPanel obterPainelEditavel() {
 
 		JPanel painelLadoEntao = new JPanel();
 
@@ -64,8 +63,8 @@ public class FormEscolherLadoEntao extends FormPrincipal {
 				comboBoxColunaEntao.addItem(planilhaCombo);
 			}
 		}else{
-			JOptionPane.showMessageDialog(form,
-				    "N‹o existe coluna para a planilha selecionada!",
+			JOptionPane.showMessageDialog(getFrame(),
+				    "Nï¿½o existe coluna para a planilha selecionada!",
 				    "AVISO", JOptionPane.WARNING_MESSAGE);
 			//TODO: voltar para o formulario anterior
 			retornaEventoBotaoVoltar();
@@ -107,12 +106,11 @@ public class FormEscolherLadoEntao extends FormPrincipal {
 			
 			public void actionPerformed(ActionEvent event) {
 			
-				setVisible(false);
 				getPlanilha().setColunaLadoEntaoEscolhida(comboBoxColunaEntao.getSelectedItem().toString());
-				form = new FormEscolherLadoSe(getArq(), getPlanilha(), getCnm());
-				form.setFrameAtual(form);
-				form.setFramePai(getFrameAtual());
-				form.setVisible(true);
+				form = new FormEscolherLadoSe(getArq(), getPlanilha(), getCnm(), getFrame());
+				form.setFormAtual(form);
+				form.setFormPai(getFormAtual());
+				form.obterConfiguracoesTela();
 			}
 		};
 	}
@@ -121,17 +119,6 @@ public class FormEscolherLadoEntao extends FormPrincipal {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				
-			}
-		};
-	}
-
-	public ActionListener retornaEventoBotaoVoltar(){
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				if(getFramePai() != null){
-					setVisible(false);
-					getFramePai().setVisible(true);
-				}
 			}
 		};
 	}

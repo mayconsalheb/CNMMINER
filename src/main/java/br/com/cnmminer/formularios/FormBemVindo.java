@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -18,18 +19,16 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 public class FormBemVindo extends FormPrincipal{
 
 
-	public FormBemVindo(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm) {
-		super(arquivo, planilha, cnm);
-	}
-
-	private static final long serialVersionUID = 3318317450049633366L;
-
 	private FormPrincipal formCarregarArq;
 	private Arquivo arq;
 	private PlanilhaExcel planilha;
 	
+	public FormBemVindo(Arquivo arquivo, PlanilhaExcel planilha, Cnm cnm, JFrame frame) {
+		super(arquivo, planilha, cnm,frame);
+	}
+	
 	@Override
-	public JPanel painelEditavel(){
+	public JPanel obterPainelEditavel(){
 
 		JPanel painelBemVindo = new JPanel();
 		
@@ -79,11 +78,10 @@ public class FormBemVindo extends FormPrincipal{
 		return new ActionListener() {
 
 			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
-				formCarregarArq = new FormCarregarArquivo(arq, planilha, getCnm());
-				formCarregarArq.setFrameAtual(formCarregarArq);
-				formCarregarArq.setFramePai(getFrameAtual());
-				formCarregarArq.setVisible(true);
+				formCarregarArq = new FormCarregarArquivo(arq, planilha, getCnm(),getFrame());
+				formCarregarArq.setFormAtual(formCarregarArq);
+				formCarregarArq.setFormPai(getFormAtual());
+				formCarregarArq.obterConfiguracoesTela();
 			}
 		};
 	}

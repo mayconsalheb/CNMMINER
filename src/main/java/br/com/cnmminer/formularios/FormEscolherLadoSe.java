@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -27,17 +28,15 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class FormEscolherLadoSe extends FormPrincipal {
 
-	public FormEscolherLadoSe(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm) {
-		super(arquivo, planilhaExcel, cnm);
+	public FormEscolherLadoSe(Arquivo arquivo, PlanilhaExcel planilhaExcel, Cnm cnm, JFrame frame) {
+		super(arquivo, planilhaExcel, cnm, frame);
 	}
 
-	private static final long serialVersionUID = -374994753484472282L;
-	
 	private FormPrincipal form;
 	private JList list;
 	
 	
-	public JPanel painelEditavel() {
+	public JPanel obterPainelEditavel() {
 
 		JPanel painelEscolherLadoSe = new JPanel();
 
@@ -97,7 +96,7 @@ public class FormEscolherLadoSe extends FormPrincipal {
 				if(index != -1){
 					JCheckBox checkbox = (JCheckBox) list.getModel().getElementAt(index);
 					checkbox.setSelected(!checkbox.isSelected());           
-					repaint();
+					getFrame().repaint();
 					}
 				}
 			});
@@ -110,28 +109,26 @@ public class FormEscolherLadoSe extends FormPrincipal {
 	public ActionListener retornaEventoBotaoAvancar(){
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				setVisible(false);
 				
 				ArrayList<String> itens = new ArrayList<String>();
 				itens = recuperarItensMarcados();
 				if(itens.size() <= 0){
-					setVisible(true);
 					new JOptionPane();
 					JOptionPane.showMessageDialog(null, "Escolha pelo menos uma opcao");
 				}else{
 					getPlanilha().setColunasLadoSeEscolhida(itens);
 					
-					form = new FormDefinirRegras(getArq(), getPlanilha(), getCnm());
-					form.setFrameAtual(form);
-					form.setFramePai(getFrameAtual());
-					form.setVisible(true);
+					form = new FormDefinirRegras(getArq(), getPlanilha(), getCnm(),getFrame());
+					form.setFormAtual(form);
+					form.setFormPai(getFormAtual());
+					form.obterConfiguracoesTela();
 				}
 			}
 		};
 	}
 	
 	/**
-	 * MŽtodo responsavel por recuperar os itens que foram marcados no Box
+	 * Mï¿½todo responsavel por recuperar os itens que foram marcados no Box
 	 * 
 	 * @return
 	 */
