@@ -121,6 +121,7 @@ public class Aprendizado{
 						
 		}
 
+		gerarCompensacao(neuronios);
 		//TODO: Escrevendo registros
 		for (Neuronio object : neuronios) {
 			System.out.println("--------------------------------");
@@ -134,10 +135,32 @@ public class Aprendizado{
 		}
 		return neuronios;
 		
-		
-		
 	}
 	
+	/**
+	 * Metodo responsavel por gerar as compensacoes
+	 * 
+	 * @param neuronios
+	 */
+	private void gerarCompensacao(List<Neuronio> neuronios) {
+		
+		for  (Neuronio neuronio : neuronios) {
+			Integer soma=0;	
+			
+			for (Neuronio neuronio2 : neuronios) {
+				if(neuronio.getEvidencias().equals(neuronio2.getEvidencias()) 
+				   && !neuronio.getHipotese().equals(neuronio2.getHipotese())){
+					soma += neuronio2.getAcumulador();
+				}
+			}
+			neuronio.setForca(neuronio.getAcumulador()-soma);
+			System.out.println("Forca neuronio: " + neuronio.getForca());
+			System.out.println("Evidencia: "+neuronio.getEvidencias());
+			System.out.println("Hipotese: "+ neuronio.getHipotese());
+		}
+		
+	}
+
 	/**
 	 * Metodo responsavel por montar a rede
 	 * 

@@ -13,6 +13,7 @@ public class Neuronio {
 	private Object hipotese;
 	private Double suporte;
 	private Double confianca;
+	private Integer forca;
 
 	public Integer getAcumulador() {
 		return acumulador;
@@ -62,6 +63,18 @@ public class Neuronio {
 	 */
 	public void setConfianca(Double confianca) {
 		this.confianca = confianca;
+	}
+	/**
+	 * @return the forca
+	 */
+	public Integer getForca() {
+		return forca;
+	}
+	/**
+	 * @param forca the forca to set
+	 */
+	public void setForca(Integer forca) {
+		this.forca = forca;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
