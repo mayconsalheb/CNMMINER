@@ -6,8 +6,10 @@ package br.com.cnmminer.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -53,7 +55,7 @@ public class Aprendizado{
 	 * @return
 	 */
 	public List<Neuronio> gerarRedeNeural(){
-		
+		Integer numCasos = 0;
 		List<Neuronio> neuronios = new ArrayList<Neuronio>();
 		ArrayList<Object> objCombinatorios = null;
 		
@@ -86,7 +88,7 @@ public class Aprendizado{
 							
 				}
 				
-				montarRede(neuronios, objCombinatorios);
+				numCasos +=  montarRede(neuronios, objCombinatorios);
 				
 			}
 			
@@ -115,13 +117,20 @@ public class Aprendizado{
 							
 				}
 				
-				montarRede(neuronios, objCombinatorios);
+				numCasos += montarRede(neuronios, objCombinatorios);
 				
 			}
 						
 		}
+		
+		calcularSuporte(neuronios,numCasos);
 
 		gerarCompensacao(neuronios);
+		
+		neuronios = podarRedePorSuporteOuForca(neuronios);
+		calcularConfianca(neuronios);
+		neuronios = podarRedePorConfianca(neuronios);
+		
 		//TODO: Escrevendo registros
 		for (Neuronio object : neuronios) {
 			System.out.println("--------------------------------");
@@ -130,13 +139,75 @@ public class Aprendizado{
 			}
 			System.out.println("HIPOTESE: " + object.getHipotese());
 			System.out.println("ACUMULADOR: " + object.getAcumulador());
+			System.out.println("SUPORTE: " + object.getSuporte());
+			System.out.println("CONFIAN‚A:" + object.getConfianca());
 			
 			System.out.println("-------------------------------");
 		}
 		return neuronios;
 		
 	}
-	
+
+	private List<Neuronio> podarRedePorConfianca(List<Neuronio> neuronios) {
+		List<Neuronio> neuroniosAux = new ArrayList<Neuronio>(neuronios);
+		
+		for (Neuronio neuronio : neuronios) {
+			
+			if(neuronio.getConfianca() < cnm.getConfianca()){
+				neuroniosAux.remove(neuronio);
+			}
+		}
+		
+		return neuroniosAux; 
+	}
+
+	private void calcularConfianca(List<Neuronio> neuronios) {
+		Map<Object, Integer> mapa = obterAcumuladorDasClasses(neuronios);
+		
+		for (Neuronio neuronio : neuronios) {
+			Double confianca = (1.0* neuronio.getAcumulador() / mapa.get(neuronio.getHipotese()) ) * 100;
+			neuronio.setConfianca(confianca);
+		}
+		
+	}
+
+	private Map<Object, Integer> obterAcumuladorDasClasses(List<Neuronio> neuronios) {
+		Map<Object, Integer> mapa = new HashMap<Object, Integer>();
+		
+		for (Neuronio neuronio : neuronios) {
+				Integer acumulador = mapa.get(neuronio.getHipotese());
+				
+				if(acumulador == null){
+					acumulador = 0;
+				}
+				
+				mapa.put(neuronio.getHipotese(), neuronio.getAcumulador() + acumulador);
+		}
+		return mapa;
+	}
+
+	private List<Neuronio> podarRedePorSuporteOuForca(List<Neuronio> neuronios) {
+		List<Neuronio> neuroniosAux = new ArrayList<Neuronio>(neuronios);
+		
+		for (Neuronio neuronio : neuronios) {
+			
+			if(neuronio.getForca() <= 0 || neuronio.getSuporte() < cnm.getSuporteMinimo()){
+				neuroniosAux.remove(neuronio);
+			}
+		}
+		
+		return neuroniosAux; 
+	}
+
+	private void calcularSuporte(List<Neuronio> neuronios, Integer numCasos) {
+		Integer acumulador=0;
+		for (Neuronio neuronio : neuronios) {
+			acumulador = neuronio.getAcumulador();
+			neuronio.setSuporte(((1.0 * acumulador / numCasos) * 100));
+		}
+		
+	}
+
 	/**
 	 * Metodo responsavel por gerar as compensacoes
 	 * 
@@ -167,8 +238,8 @@ public class Aprendizado{
 	 * @param neuronios
 	 * @param objCombinatorios
 	 */
-	private void montarRede(List<Neuronio> neuronios, ArrayList<Object> objCombinatorios) {
-		
+	private Integer montarRede(List<Neuronio> neuronios, ArrayList<Object> objCombinatorios) {
+		Integer numCasos=0;
 		objetosCombinados = obterCombinacoes(objCombinatorios.toArray());
 		
 		for (TreeSet<Object> objetoComb : objetosCombinados) {
@@ -196,14 +267,17 @@ public class Aprendizado{
 	
 				neuronio.setAcumulador(1);
 				neuronios.add(neuronio);
+				
 			}else if(neuronios.contains(neuronio)){
 				Neuronio neuronioaux = new Neuronio();
 				neuronioaux = neuronios.get(neuronios.indexOf(neuronio));
 				neuronioaux.setAcumulador(neuronioaux.getAcumulador()+1);
+				
 			}
-			
+			numCasos++;
 		}
-
+		
+		return numCasos;
 	}
 
 	/**
@@ -269,7 +343,7 @@ public class Aprendizado{
 	}
 
 	/**
-	 * Mï¿½todo responsavel por validar objeto.
+	 * Metodo responsavel por validar objeto.
 	 * 
 	 * @param valor
 	 * @return
@@ -284,7 +358,7 @@ public class Aprendizado{
 
 	
 	/**
-	 * Mï¿½todo responsavel por obter combinaï¿½ï¿½es das evidencias.
+	 * Metodo responsavel por obter combinacoes das evidencias.
 	 * 
 	 * @param status
 	 * @return

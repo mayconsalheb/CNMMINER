@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -19,7 +20,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -29,7 +29,7 @@ import br.com.cnmminer.bean.Neuronio;
 import br.com.cnmminer.bean.PlanilhaExcel;
 
 /**
- * Classe responsável por manipular o arquivo Excel.
+ * Classe responsavel por manipular o arquivo Excel.
  * 
  * @author felipe
  *
@@ -45,7 +45,7 @@ public class ManipularArquivo {
 	
 	
 	/**
-	 * Método responsável por recuperar nome do arquivo.
+	 * Metodo responsavel por recuperar nome do arquivo.
 	 * 
 	 * @param caminhoArquivo
 	 * @return
@@ -61,7 +61,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsável por recuperar diretório de entrada do arquivo.
+	 * Metodo responsavel por recuperar diretorio de entrada do arquivo.
 	 * 
 	 * @param caminhoArquivo
 	 * @param nomeArquivo 
@@ -74,7 +74,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsável por recuperar extensão do arquivo.
+	 * Metodo responsavel por recuperar extensao do arquivo.
 	 * 
 	 * @param nomeArquivo
 	 * @return
@@ -91,7 +91,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsável por recuperar as planilhas do arquivo.
+	 * Metodo responsavel por recuperar as planilhas do arquivo.
 	 * 
 	 * @return
 	 */
@@ -121,7 +121,7 @@ public class ManipularArquivo {
 	}
 	
 	/**
-	 * Método responsável por abrir o arquivo.
+	 * Metodo responsavel por abrir o arquivo.
 	 * 
 	 * @param planilhaExcel 
 	 * @param caminhoArquivo 
@@ -143,7 +143,7 @@ public class ManipularArquivo {
 				} catch (Exception e) {
 					e.printStackTrace();
 					new JOptionPane();
-					JOptionPane.showMessageDialog(null, "Não foi possível abrir o arquivo");
+					JOptionPane.showMessageDialog(null, "Nao foi possivel abrir o arquivo");
 				}
 				
 			}else if(arquivo.getExtensao().equals(Arquivo.EXTENSAO_XLSX)){
@@ -158,7 +158,7 @@ public class ManipularArquivo {
 				}catch (Exception e) {
 					e.printStackTrace();
 					new JOptionPane();
-					JOptionPane.showMessageDialog(null, "Não foi possível abrir o arquivo");
+					JOptionPane.showMessageDialog(null, "Nao foi possivel abrir o arquivo");
 				}
 			}
 			
@@ -168,7 +168,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsável por recuperar as colunas do arquivo.
+	 * Metodo responsavel por recuperar as colunas do arquivo.
 	 * 
 	 * @return
 	 */
@@ -199,7 +199,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsável por popular as colunas recuperadas da planilha
+	 * Metodo responsavel por popular as colunas recuperadas da planilha
 	 * 
 	 * @param line
 	 * @param colunas
@@ -220,7 +220,7 @@ public class ManipularArquivo {
 	}
 	
 	/**
-	 * Método responsável por criar o arquivo de saida contendo os dados com a análise do CNM
+	 * Metodo responsavel por criar o arquivo de saida contendo os dados com a analise do CNM
 	 * 
 	 * @param caminho
 	 */
@@ -231,7 +231,7 @@ public class ManipularArquivo {
 			HSSFWorkbook workbook = new HSSFWorkbook();
 			fos = new FileOutputStream(new File(caminho+EXTENSAO_ARQ));
 			
-			HSSFSheet sheet = workbook.createSheet("Análise");
+			HSSFSheet sheet = workbook.createSheet("Analise");
 			
 			workbook.write(fos);
 			
@@ -256,7 +256,7 @@ public class ManipularArquivo {
 	}
 	
 	/**
-	 * Método responsável por recuperar os indices das colunas escolhidas como Lado Se
+	 * Metodo responsavel por recuperar os indices das colunas escolhidas como Lado Se
 	 * 
 	 * @param sheet
 	 * @param planilha
@@ -282,7 +282,7 @@ public class ManipularArquivo {
 	}
 	
 	/**
-	 * Método responsável por recuperar os indices das colunas escolhidas como Lado Se
+	 * Metodo responsavel por recuperar os indices das colunas escolhidas como Lado Se
 	 * 
 	 * @param sheet
 	 * @param planilha
@@ -308,7 +308,7 @@ public class ManipularArquivo {
 	}
 	
 	/**
-	 * Método responsável por recuperar o indice do Lado Entao escolhido
+	 * Metodo responsavel por recuperar o indice do Lado Entao escolhido
 	 * 
 	 * @param sheet
 	 * @param planilha
@@ -330,7 +330,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsável por recuperar o indice do Lado Entao escolhido
+	 * Metodo responsavel por recuperar o indice do Lado Entao escolhido
 	 * 
 	 * @param sheet
 	 * @param planilha
@@ -367,7 +367,7 @@ public class ManipularArquivo {
 		
 		} catch (Exception e) {
 			new JOptionPane();
-			JOptionPane.showMessageDialog(null, "Cabeçalho não pode ser numérico ou nulo");
+			JOptionPane.showMessageDialog(null, "Cabecalho nao pode ser numerico ou nulo");
 			System.exit(1);
 		}
 		 
@@ -390,7 +390,7 @@ public class ManipularArquivo {
 		
 		} catch (Exception e) {
 			new JOptionPane();
-			JOptionPane.showMessageDialog(null, "Cabeçalho não pode ser numérico ou nulo");
+			JOptionPane.showMessageDialog(null, "Cabecalho nao pode ser numerico ou nulo");
 			System.exit(1);
 		}
 		 
@@ -398,7 +398,7 @@ public class ManipularArquivo {
 	}
 	
 	/**
-	 * Método responsavel por escrever analise dos registros no arquivo
+	 * Metodo responsavel por escrever analise dos registros no arquivo
 	 * 
 	 * @param neuronios
 	 * @param arquivoSaida
@@ -413,14 +413,14 @@ public class ManipularArquivo {
 		}
 		
 		workbookOut = new HSSFWorkbook();
-		HSSFSheet planilha = workbookOut.createSheet("Análise");
+		HSSFSheet planilha = workbookOut.createSheet("Analise");
 		HSSFRow linha; 
 		HSSFCell celula;
 		int contLinha = 0;
 		int contCelula = 0;
 		String primaria = "SE ";
 		String concatenacao = " E ";
-		String entao = "ENTÃO ";
+		String entao = "ENTAO ";
 
 		try {
 			
@@ -447,6 +447,8 @@ public class ManipularArquivo {
 					
 				}
 				
+				DecimalFormat format = new DecimalFormat("0.00");
+				
 				contCelula++;
 				celula = criarCelula(contCelula, linha);
 				celula = escreverCelula(celula, entao + (object.getHipotese() == null ? "" : object.getHipotese().toString()));
@@ -454,6 +456,14 @@ public class ManipularArquivo {
 				contCelula++;
 				celula = criarCelula(contCelula, linha);
 				celula = escreverCelula(celula, object.getAcumulador() == null ? "" : object.getAcumulador().toString());
+				
+				contCelula++;
+				celula = criarCelula(contCelula, linha);
+				celula = escreverCelula(celula, object.getConfianca() == null ? "" : format.format(object.getConfianca()).toString());
+				
+				contCelula++;
+				celula = criarCelula(contCelula, linha);
+				celula = escreverCelula(celula, object.getSuporte() == null ? "" : format.format(object.getSuporte()).toString());
 				
 				contLinha++;
 			}
@@ -475,7 +485,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsavel por criar cabecalho de arquivo de saida
+	 * Metodo responsavel por criar cabecalho de arquivo de saida
 	 * 
 	 * @param linha
 	 * @param planilha
@@ -492,7 +502,7 @@ public class ManipularArquivo {
 		celula = criarCelula(2, linha);
 		celula = escreverCelula(celula, "Num. de Casos");
 		celula = criarCelula(3, linha);
-		celula = escreverCelula(celula, "CONFIANÇA");
+		celula = escreverCelula(celula, "CONFIANCA");
 		celula = criarCelula(4, linha);
 		celula = escreverCelula(celula, "SUPORTE");
 		
@@ -500,7 +510,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsavel por inserir valor na celula
+	 * Metodo responsavel por inserir valor na celula
 	 * 
 	 * @param celula
 	 * @param valor
@@ -515,7 +525,7 @@ public class ManipularArquivo {
 	}
 
 	/**
-	 * Método responsavel por criar celula
+	 * Metodo responsavel por criar celula
 	 * 
 	 * @param contCelula
 	 * @param linha

@@ -48,7 +48,7 @@ public class FormDefinirRegras extends FormPrincipal {
 		
 		JLabel lblSuporteMnimo = DefaultComponentFactory.getInstance().createLabel("Suporte m\u00EDnimo(%):");
 		
-		JLabel lblNmeroDeCasos = DefaultComponentFactory.getInstance().createLabel("Confian\u00e7a:");
+		JLabel lblNmeroDeCasos = DefaultComponentFactory.getInstance().createLabel("Confian\u00e7a(%):");
 		
 		spinnerOrdem = new JSpinner();
 		
@@ -131,14 +131,14 @@ public class FormDefinirRegras extends FormPrincipal {
 	}
 	
 	/**
-	 * M�todo responsavel por validar os spinners de suporte
+	 * Metodo responsavel por validar os spinners de suporte
 	 * 
 	 * @param spinOrdem
-	 * @param spinNumCasos
+	 * @param spinConfianca
 	 * @param spinSuporte
 	 * @return
 	 */
-	protected boolean validarSpinners(JSpinner spinOrdem, JSpinner spinNumCasos, JSpinner spinSuporte) {
+	protected boolean validarSpinners(JSpinner spinOrdem, JSpinner spinConfianca, JSpinner spinSuporte) {
 		
 		Integer valor;
 		
@@ -155,9 +155,9 @@ public class FormDefinirRegras extends FormPrincipal {
 						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
 			}
-			valor = Integer.parseInt(spinNumCasos.getValue().toString());
-			if(valor <= 0){
-				JOptionPane.showMessageDialog(getFrame(), "Num. Casos invalido! Erro: Valor menor ou igual a 0", 
+			valor = Integer.parseInt(spinConfianca.getValue().toString());
+			if(valor <= 0 || valor > 100){
+				JOptionPane.showMessageDialog(getFrame(), "Confian\u00e7a invalida! Erro: Valor menor ou igual a 0 ou maior que 100", 
 						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;
 			}
