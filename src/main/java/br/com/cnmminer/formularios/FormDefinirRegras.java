@@ -150,7 +150,7 @@ public class FormDefinirRegras extends FormPrincipal {
 				return false;
 			}
 			valor = Integer.parseInt(spinSuporte.getValue().toString());
-			if(valor <= 0 || valor > 100){
+			if(valor < 0 || valor > 100){
 				JOptionPane.showMessageDialog(getFrame(), "Suporte invalido! Erro: Valor menor ou igual a 0 ou maior que 100", 
 						  "AVISO",JOptionPane.INFORMATION_MESSAGE);
 				return false;

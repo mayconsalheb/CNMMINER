@@ -439,9 +439,9 @@ public class ManipularArquivo {
 				for (LadoSe evidencia : object.getEvidencias()) {
 					
 					if(contAux > 0)
-						celula = escreverCelula(celula, concatenacao + evidencia.getEvidencia().toString());
+						celula = escreverCelula(celula, concatenacao + evidencia.getEvidencia().toString()+";"+evidencia.getCabecalho());
 					else
-						celula = escreverCelula(celula, primaria + evidencia.getEvidencia().toString());
+						celula = escreverCelula(celula, primaria + evidencia.getEvidencia().toString()+";"+evidencia.getCabecalho());
 					
 					contAux++;
 					
@@ -502,9 +502,9 @@ public class ManipularArquivo {
 		celula = criarCelula(2, linha);
 		celula = escreverCelula(celula, "Num. de Casos");
 		celula = criarCelula(3, linha);
-		celula = escreverCelula(celula, "CONFIANCA");
+		celula = escreverCelula(celula, "CONFIANCA (%)");
 		celula = criarCelula(4, linha);
-		celula = escreverCelula(celula, "SUPORTE");
+		celula = escreverCelula(celula, "SUPORTE (%)");
 		
 		
 	}
